@@ -1,5 +1,5 @@
 package test
-import chisel3._I
+import chisel3._
 import chisel3.experimental._
 
 class AND extends RawModule{
