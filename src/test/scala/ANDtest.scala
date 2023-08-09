@@ -1,4 +1,4 @@
-package test
+//package test
 import chisel3.stage.ChiselGeneratorAnnotation
 
 object testMain extends App{
