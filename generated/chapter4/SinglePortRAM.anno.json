@@ -1,0 +1,18 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/chapter4"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~SinglePortRAM|SinglePortRAM>io_dataOut",
+    "sources":[
+      "~SinglePortRAM|SinglePortRAM>io_en",
+      "~SinglePortRAM|SinglePortRAM>io_we"
+    ]
+  }
+]

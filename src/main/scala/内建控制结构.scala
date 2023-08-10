@@ -34,7 +34,7 @@ object 内建控制结构 extends App{
 
       def gcd(x: Long, y: Long): Long =
         if (y == 0) x else gcd(y, x % y)
-
+  gcd(10,4) => gcd(4,2)=>gcd(2,0)=>2
   三、for表达式与for循环
 
   要实现循环，在Scala里推荐使用for表达式。不过，Scala的for表达式是函数式风格的，没有引入指令式风格的“for(i = 0; i < N; i++)”。一个Scala的for表达式的一般形式如下：
@@ -50,8 +50,7 @@ object 内建控制结构 extends App{
       } yield n
 
   seq是由“生成器”、“定义”和“过滤器”三条语句组成，以分号隔开，或者放在花括号里让编译器自动推断分号。生成器“p <- persons”的右侧就是一个可迭代的集合对象，把它的每个元素逐一拿出来与左侧的模式进行匹配(有关模式匹配请见后续章节)。如果匹配成功，那么模式里的变量就会绑定上该元素对应的部分；如果匹配失败，并不会抛出匹配错误，而是简单地丢弃该元素。在这个例子里，左侧的p是一个无需定义的变量名，它构成了变量模式，也就是简单地指向persons的每个元素。大多数情况下的for表达式的生成器都是这么简单。定义就是一个赋值语句，这里的n也是一个无需定义的变量名。定义并不常用，比如这里的定义就可有可无。过滤器则是一个if语句，只有if后面的表达式为true时，生成器的元素才会继续向后传递，否则就丢弃该元素。这个例子中，是判断persons的元素的name字段是否以“To”为开头。最后，name以“To”为开头的persons元素会应用到yield后面的表达式，在这里仅仅是保持不变，没有任何操作。总之，这个表达式的结果就是遍历集合persons的元素，按顺序找出所有name以“To”为开头的元素，然后把这些元素组成一个新的集合。例如：
-
-      // test.scala
+*/
       class Person(val name: String)
 
       object Alice extends Person("Alice")
@@ -70,7 +69,7 @@ object 内建控制结构 extends App{
 
       println(To)
 
-      PS E:\Microsoft VS\Scala> scala test.scala
+  /*    PS E:\Microsoft VS\Scala> scala test.scala
       List(Tom, Tony, Todd)
 
   每个for表达式都以生成器开始。如果一个for表达式中有多个生成器，那么出现在后面的生成器比出现在前面的生成器变得更频繁，也就是指令式编程里的嵌套的for循环。例如计算乘法口诀表：

@@ -79,9 +79,8 @@ Chisel在构建硬件的思路上类似Verilog。在Verilog中，是以“模块
 
     // mux2.scala
     package test
-
+*/
     import chisel3._
-
     class Mux2 extends Module {
       val io = IO(new Bundle{
         val sel = Input(UInt(1.W))
@@ -93,7 +92,7 @@ Chisel在构建硬件的思路上类似Verilog。在Verilog中，是以“模块
       io.out := (io.sel & io.in1) | (~io.sel & io.in0)
     }
 
-在这里，“new Bundle { ... }”的写法是声明一个匿名类继承自Bundle，然后实例化匿名类。对于短小、简单的端口列表，可以使用这种简便写法。对于大的公用接口，应该单独写成具名的Bundle子类，方便修改。“io.out := ...”其实就是主构造方法的一部分，通过内建操作符和三个输入端口，实现了输出端口的逻辑行为。
+/*在这里，“new Bundle { ... }”的写法是声明一个匿名类继承自Bundle，然后实例化匿名类。对于短小、简单的端口列表，可以使用这种简便写法。对于大的公用接口，应该单独写成具名的Bundle子类，方便修改。“io.out := ...”其实就是主构造方法的一部分，通过内建操作符和三个输入端口，实现了输出端口的逻辑行为。
    Ⅱ、例化模块
 
 要例化一个模块，并不是直接用new生成一个实例对象就完成了，还需要再把实例的对象传递给单例对象Module的apply方法。这种别扭的语法是Scala的语法限制造成的，就像端口需要写成“IO(new Bundle {...})”，无符号数要写成“UInt(n.W)”等等一样。例如，下面的代码通过例化刚才的双输入多路选择器构建四输入多路选择器：
@@ -135,12 +134,11 @@ Chisel在构建硬件的思路上类似Verilog。在Verilog中，是以“模块
 
 像上个例子中，模块Mux2例化了三次，实际只需要一次性例化三个模块就可以了。对于要多次例化的重复模块，可以利用向量的工厂方法VecInit[T <: Data]。因为该方法接收的参数类型是Data的子类，而模块的字段io正好是Bundle类型，并且实际的电路连线仅仅只需针对模块的端口，所以可以把待例化模块的io字段组成一个序列，或者按重复参数的方式作为参数传递。通常使用序列作为参数，这样更节省代码。生成序列的一种方法是调用单例对象Seq里的方法fill，该方法的一个重载版本有两个单参数列表，第一个接收Int类型的对象，表示序列的元素个数，第二个是传名参数，接收序列的元素。
 
-因为Vec是一种可索引的序列，所以这种方式例化的多个模块类似于“模块数组”，用下标索引第n个模块。另外，因为Vec的元素已经是模块的端口字段io，所以要引用例化模块的某个具体端口时，路径里不用再出现“io”。例如：
+因为Vec是一种可索引的序列，所以这种方式例化的多个模块类似于“模块数组”，用下标索引第n个模块。另外，因为Vec的元素已经是模块的端口字段io，所以要引用例化模块的某个具体端口时，路径里不用再出现“io”。例如：*/
 
     // mux4_2.scala
-    package test
 
-    import chisel3._
+    import chisel3.stage.ChiselGeneratorAnnotation
 
     class Mux4_2 extends Module {
       val io = IO(new Bundle {
@@ -152,6 +150,10 @@ Chisel在构建硬件的思路上类似Verilog。在Verilog中，是以“模块
         val out = Output(UInt(1.W))
       })
 
+      /*
+      scala> val a = Seq.fill(3)(List(1,2,3,4))
+      val a: Seq[List[Int]] = List(List(1, 2, 3, 4), List(1, 2, 3, 4), List(1, 2, 3, 4))
+       */
       val m = VecInit(Seq.fill(3)(Module(new Mux2).io))  // 例化了三个Mux2，并且参数是端口字段io
       m(0).sel := io.sel(0)  // 模块的端口通过下标索引，并且路径里没有“io”
       m(0).in0 := io.in0
@@ -168,7 +170,11 @@ Chisel在构建硬件的思路上类似Verilog。在Verilog中，是以“模块
       io.out := m(2).out
     }
 
-四、线网
+    object Mux4_2 extends App{
+      (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/chapter3"),Seq(ChiselGeneratorAnnotation(()=>new Mux4_2)))
+    }
+
+/*四、线网
 
 Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T)”来定义。可以对线网进行赋值，也可以连接到其他电路节点，这是组成组合逻辑的基本硬件类型。例如：
 
@@ -203,7 +209,7 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
     // reg.scala
     package test
 
-    import chisel3._
+    import chisel3._*/
     import chisel3.util._
 
     class REG extends Module {
@@ -226,7 +232,7 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
       reg2 := io.a.andR
       reg3 := io.a.orR
 
-      when(reset.toBool) {
+      when(reset.asBool) {
         reg4 := 0.U
       } .otherwise {
         reg4 := 1.U
@@ -234,8 +240,10 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
 
       io.c := reg0(0) & reg1(0) & reg2(0) & reg3(0) & reg4(0) & reg5(0) & reg6(0) & reg7(0) & reg8(0)
     }
-
-对应生成的主要Verilog代码为：
+    object REG extends App{
+      (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/chapter3"),Seq(ChiselGeneratorAnnotation(()=>new REG)))
+    }
+/*对应生成的主要Verilog代码为：
 
     // REG.v
     module REG(
@@ -374,7 +382,7 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
 
     import chisel3._
     import chisel3.util._
-
+*/
     class REG2 extends Module {
       val io = IO(new Bundle {
         val a = Input(UInt(8.W))
@@ -397,19 +405,22 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
       reg3(0) := io.a.orR
       reg3(1) := io.a.orR
 
-      when(reset.toBool) {
+      when(reset.asBool) {
         reg4(0) := 0.U
         reg4(1) := 0.U
       } .otherwise {
         reg4(0) := 1.U
         reg4(1) := 1.U
       }
-
+  
       io.c := reg0(0)(0) & reg1(0)(0) & reg2(0)(0) & reg3(0)(0) & reg4(0)(0) & reg5(0)(0) & reg6(0)(0) & reg7(0)(0) & reg8(0)(0) &
               reg0(1)(0) & reg1(1)(0) & reg2(1)(0) & reg3(1)(0) & reg4(1)(0) & reg5(1)(0) & reg6(1)(0) & reg7(1)(0) & reg8(1)(0)
     }
+    object REG2 extends App{
+      (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/chapter3"),Seq(ChiselGeneratorAnnotation(()=>new REG2)))
+    }
 
-对应的主要Verilog代码为：
+/*对应的主要Verilog代码为：
 
     // REG2.v
     module REG2(
@@ -651,9 +662,9 @@ Chisel把线网作为电路的节点，通过工厂方法“Wire[T <: Data](t: T
     .elsewhen (condition N) { definition N }
     .otherwise { default behavior }
 
-注意，“.elsewhen”和“.otherwise”的开头有两个句点。所有的判断条件都是返回Bool类型的传名参数，不要和Scala的Boolean类型混淆，也不存在Boolean和Bool之间的相互转换。对于UInt、SInt和Reset类型，可以用方法toBool转换成Bool类型来作为判断条件。
+注意，“.elsewhen”和“.otherwise”的开头有两个句点。所有的判断条件都是返回Bool类型的传名参数，不要和Scala的Boolean类型混淆，也不存在Boolean和Bool之间的相互转换。对于UInt、SInt和Reset类型，可以用方法asBool转换成Bool类型来作为判断条件。
 
-when语句不仅可以给线网赋值，还可以给寄存器赋值，但是要注意构建组合逻辑时不能缺失“.otherwise”分支。通常，when用于给带使能信号的寄存器更新数据，组合逻辑不常用。对于有复位信号的寄存器，推荐使用RegInit来声明，这样生成的Verilog会自动根据当前的时钟域来同步复位，尽量不要在when语句里用“reset.toBool”作为复位条件。
+when语句不仅可以给线网赋值，还可以给寄存器赋值，但是要注意构建组合逻辑时不能缺失“.otherwise”分支。通常，when用于给带使能信号的寄存器更新数据，组合逻辑不常用。对于有复位信号的寄存器，推荐使用RegInit来声明，这样生成的Verilog会自动根据当前的时钟域来同步复位，尽量不要在when语句里用“reset.asBool”作为复位条件。
 
 除了when结构，util包里还有一个与之对偶的结构“unless”，如果unless的判定条件为false.B则一直执行，否则不执行：
 

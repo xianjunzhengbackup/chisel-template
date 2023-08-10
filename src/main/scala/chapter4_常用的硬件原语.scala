@@ -23,9 +23,10 @@
 可以通过工厂方法“VecInit[T <: Data](elt0: T, elts: T*)”或“VecInit[T <: Data](elts: Seq[T])”来创建一个只读存储器，参数就是ROM里的常量数值，对应的Verilog代码就是给读取ROM的线网或寄存器赋予常量值。例如：
 
     // rom.scala
-    package test
+    package test*/
 
     import chisel3._
+    import chisel3.stage.ChiselGeneratorAnnotation
 
     class ROM extends Module {
       val io = IO(new Bundle {
@@ -37,8 +38,10 @@
 
       io.out := rom(io.sel)
     }
-
-对应的Verilog为：
+    object ROM extends App{
+      (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/chapter4"),Seq(ChiselGeneratorAnnotation(()=>new ROM)))
+    }
+/*对应的Verilog为：
 
     // ROM.v
     module ROM(
@@ -87,7 +90,7 @@ Chisel支持两种类型的RAM。第一种RAM是同步(时序)写，异步(组�
     // ram.scala
     package test
 
-    import chisel3._
+    import chisel3._*/
 
     class SinglePortRAM extends Module {
       val io = IO(new Bundle {
@@ -111,8 +114,11 @@ Chisel支持两种类型的RAM。第一种RAM是同步(时序)写，异步(组�
         io.dataOut := DontCare
       }
     }
+    object SinglePortRAM extends App{
+      (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/chapter4"),Seq(ChiselGeneratorAnnotation(()=>new SinglePortRAM)))
+    }
 
-下面是Vivado综合后的部分截图，可以看到确实变成了实际的BRAM：
+/*下面是Vivado综合后的部分截图，可以看到确实变成了实际的BRAM：
 Vivado的BRAM最多支持真·双端口，按照对应的Verilog模板逆向编写Chisel，然后用编译器把Chisel转换成Verilog。但此时编译器生成的Verilog代码并不能被Vivado的综合器识别出来。原因在于SyncReadMem生成的Verilog代码是用一级寄存器保存输入的读地址，然后用读地址寄存器去异步读取RAM的数据，而Vivado的综合器识别不出这种模式的RAM。读者必须手动修改成用一级寄存器保存异步读取的数据而不是读地址，然后把读数据寄存器的内容用assign语句赋值给读数据端口，这样才能被识别成真·双端口BRAM。尚不清楚其它综合器是否有这个问题。经过咨询SiFive的工作人员，对方答复因为当前转换的代码把延迟放在地址一侧，所以流水线的节拍设计也是根据这个来的。考虑到贸然修改SyncReadMem的行为，可能会潜在地影响其它用户对流水线的设计，故而没有修改计划。如果确实需要自定义的、对综合器友好的Verilog代码，可以使用黑盒功能替代，或者给Firrtl编译器传入参数，改用自定义脚本来编译Chisel。
 四、带写掩模的RAM
 
