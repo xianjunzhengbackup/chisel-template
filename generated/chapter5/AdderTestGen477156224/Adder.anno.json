@@ -1,0 +1,36 @@
+[
+  {
+    "class":"firrtl.stage.FirrtlFileAnnotation",
+    "file":"generated/chapter5/AdderTestGen477156224/Adder.lo.fir"
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.LowFirrtlEmitter"
+  },
+  {
+    "class":"logger.LogLevelAnnotation",
+    "globalLogLevel":{
+      
+    }
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/chapter5/AdderTestGen477156224"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~Adder|Adder>io_cout",
+    "sources":[
+      "~Adder|Adder>io_a",
+      "~Adder|Adder>io_b"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~Adder|Adder>io_s",
+    "sources":[
+      "~Adder|Adder>io_a",
+      "~Adder|Adder>io_b"
+    ]
+  }
+]
