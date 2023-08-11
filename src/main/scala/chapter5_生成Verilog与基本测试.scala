@@ -230,6 +230,10 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
         step(1)
         expect(c.io.s, (a + b) & 0xff)
         expect(c.io.cout, ((a + b) & 0x100) >> 8)
+        println(s"Input a $a")
+        println(s"Input b $b")
+        println(s"Output cout ${c.io.cout}")
+        println(s"Output s ${c.io.s}")
       }
     }
 
