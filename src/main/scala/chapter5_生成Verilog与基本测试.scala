@@ -218,8 +218,7 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
     package test*/
 
     import scala.util._
-    import chiseltest._
-    //import chisel-iotesters._
+    import chisel3.iotesters._
 
     class AdderTest(c: Adder) extends PeekPokeTester(c) {
       val randNum = new Random

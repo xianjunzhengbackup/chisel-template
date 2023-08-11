@@ -5,6 +5,7 @@ ThisBuild / version          := "0.1.0"
 ThisBuild / organization     := "%ORGANIZATION%"
 
 val chiselVersion = "3.5.4"
+//val chiselVersion = "3.1.+"
 
 lazy val root = (project in file("."))
   .settings(
@@ -12,7 +13,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "edu.berkeley.cs" %% "chisel3" % chiselVersion,
       //"edu.berkeley.cs" %% "chiseltest" % "0.5"
-      "edu.berkeley.cs" %% "chiseltest" % "5.0-SNAPSHOT"
+      "edu.berkeley.cs" %% "chisel-iotesters" % "2.5.6"
     ),
     scalacOptions ++= Seq(
       "-language:reflectiveCalls",
@@ -23,4 +24,6 @@ lazy val root = (project in file("."))
     ),
     addCompilerPlugin("edu.berkeley.cs" % "chisel3-plugin" % chiselVersion cross CrossVersion.full),
   )
+  
+
 
