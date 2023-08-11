@@ -41,6 +41,15 @@
 
 注意，sbt后面有空格，再后面的内容都是被单引号对或双引号对包起来。其中，test:runMain是让sbt执行主函数的命令，而test.FullAdderGen就是要执行的那个主函数。
 
+*********************************************************edited on 11/08/2023
+Above content are based on old version of Chisel. Under new Chisel, the code to generate verilog is:
+import chisel3.stage.ChiselGeneratorAnnotation
+(new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/stored_verilog_folder"),Seq(ChiselGeneratorAnnotation(()=>new FullAdder )))
+*******************************************************************************
+
+
+
+
 如果设计文件没有错误，那么最后就会看到“[success] Total time: 6 s, completed Feb 22, 2019 4:45:31 PM”这样的信息。此时，终端的路径下就会生成三个文件：FullAdder.anno.json、FullAdder.fir和FullAdder.v。
 
 第一个文件用于记录传递给Firrtl编译器的Scala注解，读者可以不用关心。第二个后缀为“.fir”的文件就是对应的Firrtl代码，第三个自然是对应的Verilog文件。
@@ -148,9 +157,7 @@
    Ⅱ、给主函数传递参数
 
 Scala的类可以接收参数，自然Chisel的模块也可以接收参数。假设要构建一个n位的加法器，具体位宽不确定，根据需要而定。那么，就可以把端口位宽参数化，例化时传入想要的参数即可。例如：
-
-    // adder.scala
-    package test
+*/
 
     import chisel3._
 
@@ -166,6 +173,7 @@ Scala的类可以接收参数，自然Chisel的模块也可以接收参数。假
       io.cout := (io.a +& io.b)(n)
     }
 
+    /*
     // adderGen.scala
     package test
 
@@ -207,10 +215,11 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
 如下所示是一个对前一例中的8位加法器的testbench：
 
     // addertest.scala
-    package test
+    package test*/
 
     import scala.util._
-    import chisel3.iotesters._
+    import chiseltest._
+    //import chisel-iotesters._
 
     class AdderTest(c: Adder) extends PeekPokeTester(c) {
       val randNum = new Random
@@ -225,17 +234,17 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
       }
     }
 
-其中，第一个包scala.util里包含了Scala生成伪随机数的类Random，第二个包chisel3.iotesters包含了测试类PeekPokeTester。
+/*其中，第一个包scala.util里包含了Scala生成伪随机数的类Random，第二个包chisel3.iotesters包含了测试类PeekPokeTester。
 四、运行测试
 
 要运行测试，自然也是通过主函数，但是这次是使用iotesters包里的execute方法。该方法与前面生成Verilog的方法类似，仅仅是多了一个参数列表，多出的第二个参数列表接收一个返回测试类的对象的函数：
-
+*/
     // addertest.scala
     object AdderTestGen extends App {
       chisel3.iotesters.Driver.execute(args, () => new Adder(8))(c => new AdderTest(c))
     }
 
-运行如下命令：
+/*运行如下命令：
 
     esperanto@ubuntu:~/chisel-template$  sbt 'test:runMain test.AdderTestGen -td ./generated/addertest --backend-name verilator'
 

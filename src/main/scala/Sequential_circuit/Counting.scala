@@ -9,12 +9,11 @@ object Counting extends App{
   output of Adder to the input of the register, it becomes a counter that counts
   up to 1 clock as following. RegInit returns a register with the reset value as
   an argument.
-  /** 31 bit counter. 7 segment LED displays upper 4 bit value.
-  */
-  class Counter31Bit extends Module {
-  val io = IO(new Bundle {
-  val seg7led = Output(new Seg7LEDBundle)
-  })
+  --------------------- 31 bit counter. 7 segment LED displays upper 4 bit value.*/
+  /*class Counter31Bit extends Module {
+    val io = IO(new Bundle {
+      val seg7led = Output(new Seg7LEDBundle)
+    })
   // Register for counter of 31 bit width (Initialize to 0)
   val count = RegInit(0.U(31.W))
   count := count + 1.U // 1 increase per clock
@@ -22,8 +21,8 @@ object Counting extends App{
   val seg7LED1Digit = Module(new Seg7LED1Digit)
   seg7LED1Digit.io.num := count(30, 27) // display upper 4 bits
   io.seg7led := seg7LED1Digit.io.seg7led
-  }
-  If the register variable is on the right-hand side, as in the following "count",
+  }*/
+  /*If the register variable is on the right-hand side, as in the following "count",
   the "count" changes every clock rise. On the other hand, if a variable such as
   Output or Wire like seg7led is on the right side, when the variable on the
   right side changes, the variable on the left side also changes immediately.
@@ -82,8 +81,7 @@ object Counting extends App{
   To detect a change only once, detect the change from false.B to true.B by
   saving the state of the button twice with a cycle longer than the bounce
   period as follows:
-  /** Debounce module for push button
-  */
+   Debounce module for push button
   class Debounce extends Module {
   val io = IO(new Bundle{
   val in = Input(Bool())
@@ -97,8 +95,7 @@ object Counting extends App{
   1 clock
   io.out := reg0 && ~reg1 && enable
   }
-  /** Debounce module for push button(Singleton object)
-  */
+   Debounce module for push button(Singleton object)
   object Debounce {
   def apply(in: Bool()): Bool = {
   val debounce = Module(new Debounce)

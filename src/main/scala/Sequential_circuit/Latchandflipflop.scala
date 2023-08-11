@@ -1,4 +1,5 @@
 package Sequential_circuit
+import chisel3._
 
 object Latchandflipflop extends App{
   /*
@@ -8,19 +9,18 @@ object Latchandflipflop extends App{
   result will be. (The synthesis of combinational circuits of this type, in which
   the signal is looped, is prohibited in Chisel and Vivado. Therefore, we use a
   special procedure.)
-  /** SR Latch
-  */
+  ------- SR Latch-------------*/
   class SRLatch extends Module {
-  val io = IO(new Bundle {
-  val set = Input(Bool())
-  val reset = Input(Bool())
-  val q = Output(Bool())
-  val notQ = Output(Bool())
-  })
-  io.q := ~(io.reset | io.notQ)
-  io.notQ := ~(io.set | io.q)
+    val io = IO(new Bundle {
+      val set = Input(Bool())
+      val reset = Input(Bool())
+      val q = Output(Bool())
+      val notQ = Output(Bool())
+    })
+    io.q := ~(io.reset | io.notQ)
+    io.notQ := ~(io.set | io.q)
   }
-  What is the output of this module? Let's examine all cases of input and let's
+  /*What is the output of this module? Let's examine all cases of input and let's
   see what happens to the output.
   1. CASE: io.reset = true.B, io.set = false.B
   io.q is always false.B because io.reset is true.B.
@@ -81,8 +81,7 @@ object Latchandflipflop extends App{
   BTNU (M18)) as reset buttons, we can omit the "withReset ()" as follows.
   import chisel3._
   import chisel3.util._
-  /** 4 bits Register
-  */
+  -------------- 4 bits Register
   class Reg4Bit extends Module {
   val io = IO(new Bundle {
   val in = Input(UInt(4.W))
