@@ -249,9 +249,13 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
 
 /*运行如下命令：
 
-    esperanto@ubuntu:~/chisel-template$  sbt 'test:runMain test.AdderTestGen -td ./generated/addertest --backend-name verilator'
+    esperanto@ubuntu:~/chisel-template$  sbt 'runMain AdderTestGen -td /data/data/com.termux/files/home/generated/chapter5/ --backend-name verilator'
+
+    -td folder has to be in this folder, if still in chisel-template/generated won't work
 
 执行成功后，就能在相应文件夹里看到一个新生成的文件夹，里面是仿真生成的文件。其中，“Adder.vcd”文件就是波形文件，使用GTKWave软件打开就能查看，将相应的端口拖拽到右侧就能显示波形。
+
+or Open https://vc.drom.io/ can load vcd file online
 
 如果只想在终端查看仿真运行的信息，则执行命令：
 
