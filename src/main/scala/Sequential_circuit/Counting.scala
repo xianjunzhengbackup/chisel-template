@@ -1,4 +1,7 @@
 package Sequential_circuit
+import chisel3._
+import chisel3.stage.ChiselGeneratorAnnotation
+import chisel3.iotesters._
 
 object Counting extends App{
   /*
@@ -10,7 +13,7 @@ object Counting extends App{
   up to 1 clock as following. RegInit returns a register with the reset value as
   an argument.
   --------------------- 31 bit counter. 7 segment LED displays upper 4 bit value.*/
-  /*class Counter31Bit extends Module {
+  class Counter31Bit extends Module {
     val io = IO(new Bundle {
       val seg7led = Output(new Seg7LEDBundle)
     })
@@ -21,7 +24,21 @@ object Counting extends App{
   val seg7LED1Digit = Module(new Seg7LED1Digit)
   seg7LED1Digit.io.num := count(30, 27) // display upper 4 bits
   io.seg7led := seg7LED1Digit.io.seg7led
-  }*/
+  }
+
+  //(new chisel3.stage.ChiselStage).execute(Array("--target-dir","~/generated/Sequential_circuit"),Seq(ChiselGeneratorAnnotation(()=>new Counter31Bit)))
+  
+  class Counter31BitTest(c:Counter31Bit) extends PeekPokeTester(c){
+    step(20)
+  }
+
+  chisel3.iotesters.Driver.execute(args,()=>new Counter31Bit)(c=>new Counter31BitTest(c))
+  /* run this command "runMain Sequential_circuit.Counting -td /data/data/com.termux/files/home/generated/Sequential_circui --backend-name verilator"
+   /data/data/com.termux/files/home are termux storage, if running from here, no permission issue
+   /data/data/com.termux/files/home/storage/Downoad are symbolic link to Android Download foler, running here will have verilog permission issue.
+   * Install this App https://play.google.com/store/apps/details?id=me.zhanghai.android.files
+   * This App can gain access to termux folder which is /data/data/com.termux/files/home/generated
+   */
   /*If the register variable is on the right-hand side, as in the following "count",
   the "count" changes every clock rise. On the other hand, if a variable such as
   Output or Wire like seg7led is on the right side, when the variable on the

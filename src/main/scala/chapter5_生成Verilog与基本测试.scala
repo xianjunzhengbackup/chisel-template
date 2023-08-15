@@ -253,6 +253,7 @@ Chisel的测试有两种，第一种是利用Scala的测试来验证Chisel级别
 
     -td folder has to be in this folder, if still in chisel-template/generated won't work
 
+
 执行成功后，就能在相应文件夹里看到一个新生成的文件夹，里面是仿真生成的文件。其中，“Adder.vcd”文件就是波形文件，使用GTKWave软件打开就能查看，将相应的端口拖拽到右侧就能显示波形。
 
 or Open https://vc.drom.io/ can load vcd file online
@@ -261,62 +262,6 @@ or Open https://vc.drom.io/ can load vcd file online
 
     esperanto@ubuntu:~/chisel-template$  sbt 'test:runMain test.AdderTestGen -td ./generated/addertest --is-verbose'
 
-那么终端就会显示如下信息：
-
-    [info] [0.002] SEED 1550906002475
-    [info] [0.005]   POKE io_a <- 184
-    [info] [0.006]   POKE io_b <- 142
-    [info] [0.006] STEP 0 -> 1
-    [info] [0.007] EXPECT AT 1   io_s got 70 expected 70 PASS
-    [info] [0.008] EXPECT AT 1   io_cout got 1 expected 1 PASS
-    [info] [0.008]   POKE io_a <- 114
-    [info] [0.009]   POKE io_b <- 231
-    [info] [0.009] STEP 1 -> 2
-    [info] [0.009] EXPECT AT 2   io_s got 89 expected 89 PASS
-    [info] [0.009] EXPECT AT 2   io_cout got 1 expected 1 PASS
-    [info] [0.010]   POKE io_a <- 183
-    [info] [0.010]   POKE io_b <- 168
-    [info] [0.010] STEP 2 -> 3
-    [info] [0.011] EXPECT AT 3   io_s got 95 expected 95 PASS
-    [info] [0.011] EXPECT AT 3   io_cout got 1 expected 1 PASS
-    [info] [0.012]   POKE io_a <- 223
-    [info] [0.012]   POKE io_b <- 106
-    [info] [0.012] STEP 3 -> 4
-    [info] [0.012] EXPECT AT 4   io_s got 73 expected 73 PASS
-    [info] [0.013] EXPECT AT 4   io_cout got 1 expected 1 PASS
-    [info] [0.013]   POKE io_a <- 12
-    [info] [0.013]   POKE io_b <- 182
-    [info] [0.013] STEP 4 -> 5
-    [info] [0.014] EXPECT AT 5   io_s got 194 expected 194 PASS
-    [info] [0.014] EXPECT AT 5   io_cout got 0 expected 0 PASS
-    [info] [0.014]   POKE io_a <- 52
-    [info] [0.014]   POKE io_b <- 41
-    [info] [0.015] STEP 5 -> 6
-    [info] [0.015] EXPECT AT 6   io_s got 93 expected 93 PASS
-    [info] [0.016] EXPECT AT 6   io_cout got 0 expected 0 PASS
-    [info] [0.016]   POKE io_a <- 187
-    [info] [0.017]   POKE io_b <- 60
-    [info] [0.017] STEP 6 -> 7
-    [info] [0.017] EXPECT AT 7   io_s got 247 expected 247 PASS
-    [info] [0.018] EXPECT AT 7   io_cout got 0 expected 0 PASS
-    [info] [0.018]   POKE io_a <- 218
-    [info] [0.019]   POKE io_b <- 203
-    [info] [0.019] STEP 7 -> 8
-    [info] [0.019] EXPECT AT 8   io_s got 165 expected 165 PASS
-    [info] [0.020] EXPECT AT 8   io_cout got 1 expected 1 PASS
-    [info] [0.020]   POKE io_a <- 123
-    [info] [0.021]   POKE io_b <- 115
-    [info] [0.021] STEP 8 -> 9
-    [info] [0.021] EXPECT AT 9   io_s got 238 expected 238 PASS
-    [info] [0.022] EXPECT AT 9   io_cout got 0 expected 0 PASS
-    [info] [0.022]   POKE io_a <- 17
-    [info] [0.022]   POKE io_b <- 197
-    [info] [0.023] STEP 9 -> 10
-    [info] [0.023] EXPECT AT 10   io_s got 214 expected 214 PASS
-    [info] [0.024] EXPECT AT 10   io_cout got 0 expected 0 PASS
-    test Adder Success: 20 tests passed in 15 cycles in 0.047415 seconds 316.36 Hz
-    [info] [0.025] RAN 10 CYCLES PASSED
-    [success] Total time: 7 s, completed Feb 23, 2019 3:13:26 PM
 
 五、总结
 
