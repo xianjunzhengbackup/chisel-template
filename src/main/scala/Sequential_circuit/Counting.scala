@@ -38,6 +38,7 @@ object Counting extends App{
    /data/data/com.termux/files/home/storage/Downoad are symbolic link to Android Download foler, running here will have verilog permission issue.
    * Install this App https://play.google.com/store/apps/details?id=me.zhanghai.android.files
    * This App can gain access to termux folder which is /data/data/com.termux/files/home/generated
+   * After get .vcd , go to https://vc.drom.io/ to view vcd wave
    */
   /*If the register variable is on the right-hand side, as in the following "count",
   the "count" changes every clock rise. On the other hand, if a variable such as
