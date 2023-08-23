@@ -16,44 +16,44 @@ module Mux4(
   input        io_in_3,
   output       io_out
 );
-  wire  mux1_io_selector; // @[Mux4.scala 17:18]
-  wire  mux1_io_in_0; // @[Mux4.scala 17:18]
-  wire  mux1_io_in_1; // @[Mux4.scala 17:18]
-  wire  mux1_io_out; // @[Mux4.scala 17:18]
-  wire  mux2_io_selector; // @[Mux4.scala 18:18]
-  wire  mux2_io_in_0; // @[Mux4.scala 18:18]
-  wire  mux2_io_in_1; // @[Mux4.scala 18:18]
-  wire  mux2_io_out; // @[Mux4.scala 18:18]
-  wire  mux3_io_selector; // @[Mux4.scala 25:18]
-  wire  mux3_io_in_0; // @[Mux4.scala 25:18]
-  wire  mux3_io_in_1; // @[Mux4.scala 25:18]
-  wire  mux3_io_out; // @[Mux4.scala 25:18]
-  Mux2 mux1 ( // @[Mux4.scala 17:18]
-    .io_selector(mux1_io_selector),
-    .io_in_0(mux1_io_in_0),
-    .io_in_1(mux1_io_in_1),
-    .io_out(mux1_io_out)
+  wire  out_0_1_mux2_io_selector; // @[Mux2.scala 19:22]
+  wire  out_0_1_mux2_io_in_0; // @[Mux2.scala 19:22]
+  wire  out_0_1_mux2_io_in_1; // @[Mux2.scala 19:22]
+  wire  out_0_1_mux2_io_out; // @[Mux2.scala 19:22]
+  wire  out_2_3_mux2_io_selector; // @[Mux2.scala 19:22]
+  wire  out_2_3_mux2_io_in_0; // @[Mux2.scala 19:22]
+  wire  out_2_3_mux2_io_in_1; // @[Mux2.scala 19:22]
+  wire  out_2_3_mux2_io_out; // @[Mux2.scala 19:22]
+  wire  io_out_mux2_io_selector; // @[Mux2.scala 19:22]
+  wire  io_out_mux2_io_in_0; // @[Mux2.scala 19:22]
+  wire  io_out_mux2_io_in_1; // @[Mux2.scala 19:22]
+  wire  io_out_mux2_io_out; // @[Mux2.scala 19:22]
+  Mux2 out_0_1_mux2 ( // @[Mux2.scala 19:22]
+    .io_selector(out_0_1_mux2_io_selector),
+    .io_in_0(out_0_1_mux2_io_in_0),
+    .io_in_1(out_0_1_mux2_io_in_1),
+    .io_out(out_0_1_mux2_io_out)
   );
-  Mux2 mux2 ( // @[Mux4.scala 18:18]
-    .io_selector(mux2_io_selector),
-    .io_in_0(mux2_io_in_0),
-    .io_in_1(mux2_io_in_1),
-    .io_out(mux2_io_out)
+  Mux2 out_2_3_mux2 ( // @[Mux2.scala 19:22]
+    .io_selector(out_2_3_mux2_io_selector),
+    .io_in_0(out_2_3_mux2_io_in_0),
+    .io_in_1(out_2_3_mux2_io_in_1),
+    .io_out(out_2_3_mux2_io_out)
   );
-  Mux2 mux3 ( // @[Mux4.scala 25:18]
-    .io_selector(mux3_io_selector),
-    .io_in_0(mux3_io_in_0),
-    .io_in_1(mux3_io_in_1),
-    .io_out(mux3_io_out)
+  Mux2 io_out_mux2 ( // @[Mux2.scala 19:22]
+    .io_selector(io_out_mux2_io_selector),
+    .io_in_0(io_out_mux2_io_in_0),
+    .io_in_1(io_out_mux2_io_in_1),
+    .io_out(io_out_mux2_io_out)
   );
-  assign io_out = mux3_io_out; // @[Mux4.scala 29:10]
-  assign mux1_io_selector = io_selector[0]; // @[Mux4.scala 19:33]
-  assign mux1_io_in_0 = io_in_0; // @[Mux4.scala 20:16]
-  assign mux1_io_in_1 = io_in_1; // @[Mux4.scala 21:16]
-  assign mux2_io_selector = io_selector[0]; // @[Mux4.scala 22:33]
-  assign mux2_io_in_0 = io_in_2; // @[Mux4.scala 23:16]
-  assign mux2_io_in_1 = io_in_3; // @[Mux4.scala 24:16]
-  assign mux3_io_selector = io_selector[1]; // @[Mux4.scala 26:34]
-  assign mux3_io_in_0 = mux1_io_out; // @[Mux4.scala 27:16]
-  assign mux3_io_in_1 = mux2_io_out; // @[Mux4.scala 28:16]
+  assign io_out = io_out_mux2_io_out; // @[Mux4.scala 33:9]
+  assign out_0_1_mux2_io_selector = io_selector[0]; // @[Mux4.scala 31:32]
+  assign out_0_1_mux2_io_in_0 = io_in_0; // @[Mux2.scala 21:18]
+  assign out_0_1_mux2_io_in_1 = io_in_1; // @[Mux2.scala 22:18]
+  assign out_2_3_mux2_io_selector = io_selector[0]; // @[Mux4.scala 32:32]
+  assign out_2_3_mux2_io_in_0 = io_in_2; // @[Mux2.scala 21:18]
+  assign out_2_3_mux2_io_in_1 = io_in_3; // @[Mux2.scala 22:18]
+  assign io_out_mux2_io_selector = io_selector[1]; // @[Mux4.scala 33:28]
+  assign io_out_mux2_io_in_0 = out_0_1_mux2_io_out; // @[Mux2.scala 21:18]
+  assign io_out_mux2_io_in_1 = out_2_3_mux2_io_out; // @[Mux2.scala 22:18]
 endmodule

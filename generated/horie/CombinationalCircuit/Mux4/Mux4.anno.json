@@ -2,19 +2,19 @@
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Mux4|Mux2",
-    "duplicate":"~Mux4|Mux4/mux1:Mux2",
+    "duplicate":"~Mux4|Mux4/out_0_1_mux2:Mux2",
     "index":0.0
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Mux4|Mux2_1",
-    "duplicate":"~Mux4|Mux4/mux2:Mux2",
+    "duplicate":"~Mux4|Mux4/out_2_3_mux2:Mux2",
     "index":0.3333333333333333
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Mux4|Mux2_2",
-    "duplicate":"~Mux4|Mux4/mux3:Mux2",
+    "duplicate":"~Mux4|Mux4/io_out_mux2:Mux2",
     "index":0.6666666666666666
   },
   {

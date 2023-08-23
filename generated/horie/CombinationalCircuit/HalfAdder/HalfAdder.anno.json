@@ -1,0 +1,26 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/horie/CombinationalCircuit/HalfAdder"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~HalfAdder|HalfAdder>io_carryOut",
+    "sources":[
+      "~HalfAdder|HalfAdder>io_a",
+      "~HalfAdder|HalfAdder>io_b"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~HalfAdder|HalfAdder>io_sum",
+    "sources":[
+      "~HalfAdder|HalfAdder>io_a",
+      "~HalfAdder|HalfAdder>io_b"
+    ]
+  }
+]

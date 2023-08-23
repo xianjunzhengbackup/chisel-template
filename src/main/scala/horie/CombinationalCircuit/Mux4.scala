@@ -14,7 +14,7 @@ class Mux4 extends Module{
     val in_3=Input(UInt(1.W))
     val out=Output(UInt(1.W))
   })
-  val mux1=Module(new Mux2)
+  /*val mux1=Module(new Mux2)
   val mux2=Module(new Mux2)
   mux1.io.selector :=io.selector(0)
   mux1.io.in_0 := io.in_0
@@ -26,7 +26,11 @@ class Mux4 extends Module{
   mux3.io.selector := io.selector(1)
   mux3.io.in_0 := mux1.io.out
   mux3.io.in_1 := mux2.io.out
-  io.out := mux3.io.out
+  io.out := mux3.io.out*/
+
+ val out_0_1 = Mux2(io.selector(0),io.in_0,io.in_1)
+ val out_2_3 = Mux2(io.selector(0),io.in_2,io.in_3)
+ io.out := Mux2(io.selector(1),out_0_1,out_2_3)
 }
 
 object Mux4Obj extends App{
