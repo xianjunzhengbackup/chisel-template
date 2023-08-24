@@ -10,24 +10,23 @@ class Multiplier4Bit extends Module{
     val b = Input(UInt(4.W))
     val result = Output(UInt(8.W))
   })
+  val s = VecInit.fill(4)(Module(new LeftShifter).io)
+  
+  for(i <- 0 to 3){
+    s(i).in := Mux(io.b(i),io.a,0.U(4.W))
+    s(i).shiftAmount := Mux(io.b(i),i.U(2.W),0.U(2.W))
+  }
+  val adders = VecInit.fill(3)(Module(new AdderNBit(8)).io)
+  for(i <- 0 to 2)
+    adders(i).carryIn :=0.U(1.W)
+  adders(0).a := Cat(0.U(1.W),s(0).out)
+  adders(0).b := Cat(0.U(1.W),s(1).out)
+  adders(1).a := Cat(0.U(1.W),s(2).out)
+  adders(1).b := Cat(0.U(1.W),s(3).out)
+  adders(2).a := adders(0).sum
+  adders(2).b := adders(1).sum
 
-  val s1 = Module(new LeftShifter)
-
-  s1.io.in := io.a
-  s1.io.shiftAmount :=io.b(2,1) 
-  val r1 = s1.io.out
-
-  val adder8bit_1 = Module(new AdderNBit(8))
-  adder8bit_1.io.carryIn := 0.U(1.W)
-  adder8bit_1.io.b :=Cat(0.U(2.W),r1)
-  adder8bit_1.io.a :=Mux(io.b(0),Cat(0.U(4.W),io.a),0.U(8.W))
-
-  val adder8bit_2 = Module(new AdderNBit(8))
-  adder8bit_2.io.carryIn := 0.U
-  adder8bit_2.io.a := adder8bit_1.io.sum
-  adder8bit_2.io.b :=Mux(io.b(3),Cat(0.U(1.W),io.a,0.U(3.W)),0.U(8.W))
-
-  io.result := adder8bit_2.io.sum
+  io.result := adders(2).sum
 }
 
 object Multiplier4BitObj extends App{

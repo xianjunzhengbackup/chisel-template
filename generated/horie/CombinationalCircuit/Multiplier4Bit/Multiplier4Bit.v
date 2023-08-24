@@ -1,11 +1,10 @@
 module LeftShifter(
   input  [3:0] io_in,
   input  [1:0] io_shiftAmount,
-  output [5:0] io_out
+  output [6:0] io_out
 );
   wire [6:0] _GEN_0 = {{3'd0}, io_in}; // @[LeftShifter.scala 13:19]
-  wire [6:0] _io_out_T = _GEN_0 << io_shiftAmount; // @[LeftShifter.scala 13:19]
-  assign io_out = _io_out_T[5:0]; // @[LeftShifter.scala 13:10]
+  assign io_out = _GEN_0 << io_shiftAmount; // @[LeftShifter.scala 13:19]
 endmodule
 module HalfAdder(
   input   io_a,
@@ -194,37 +193,79 @@ module Multiplier4Bit(
   input  [3:0] io_b,
   output [7:0] io_result
 );
-  wire [3:0] s1_io_in; // @[Multiplier4Bit.scala 14:18]
-  wire [1:0] s1_io_shiftAmount; // @[Multiplier4Bit.scala 14:18]
-  wire [5:0] s1_io_out; // @[Multiplier4Bit.scala 14:18]
-  wire [7:0] adder8bit_1_io_a; // @[Multiplier4Bit.scala 20:27]
-  wire [7:0] adder8bit_1_io_b; // @[Multiplier4Bit.scala 20:27]
-  wire [7:0] adder8bit_1_io_sum; // @[Multiplier4Bit.scala 20:27]
-  wire [7:0] adder8bit_2_io_a; // @[Multiplier4Bit.scala 25:27]
-  wire [7:0] adder8bit_2_io_b; // @[Multiplier4Bit.scala 25:27]
-  wire [7:0] adder8bit_2_io_sum; // @[Multiplier4Bit.scala 25:27]
-  wire [7:0] _adder8bit_1_io_a_T_1 = {4'h0,io_a}; // @[Cat.scala 33:92]
-  wire [7:0] _adder8bit_2_io_b_T_1 = {1'h0,io_a,3'h0}; // @[Cat.scala 33:92]
-  LeftShifter s1 ( // @[Multiplier4Bit.scala 14:18]
-    .io_in(s1_io_in),
-    .io_shiftAmount(s1_io_shiftAmount),
-    .io_out(s1_io_out)
+  wire [3:0] LeftShifter_io_in; // @[Multiplier4Bit.scala 13:33]
+  wire [1:0] LeftShifter_io_shiftAmount; // @[Multiplier4Bit.scala 13:33]
+  wire [6:0] LeftShifter_io_out; // @[Multiplier4Bit.scala 13:33]
+  wire [3:0] LeftShifter_1_io_in; // @[Multiplier4Bit.scala 13:33]
+  wire [1:0] LeftShifter_1_io_shiftAmount; // @[Multiplier4Bit.scala 13:33]
+  wire [6:0] LeftShifter_1_io_out; // @[Multiplier4Bit.scala 13:33]
+  wire [3:0] LeftShifter_2_io_in; // @[Multiplier4Bit.scala 13:33]
+  wire [1:0] LeftShifter_2_io_shiftAmount; // @[Multiplier4Bit.scala 13:33]
+  wire [6:0] LeftShifter_2_io_out; // @[Multiplier4Bit.scala 13:33]
+  wire [3:0] LeftShifter_3_io_in; // @[Multiplier4Bit.scala 13:33]
+  wire [1:0] LeftShifter_3_io_shiftAmount; // @[Multiplier4Bit.scala 13:33]
+  wire [6:0] LeftShifter_3_io_out; // @[Multiplier4Bit.scala 13:33]
+  wire [7:0] AdderNBit_io_a; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_io_b; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_io_sum; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_1_io_a; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_1_io_b; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_1_io_sum; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_2_io_a; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_2_io_b; // @[Multiplier4Bit.scala 19:38]
+  wire [7:0] AdderNBit_2_io_sum; // @[Multiplier4Bit.scala 19:38]
+  wire [6:0] s_0_out = LeftShifter_io_out; // @[Multiplier4Bit.scala 13:{26,26}]
+  wire [6:0] s_1_out = LeftShifter_1_io_out; // @[Multiplier4Bit.scala 13:{26,26}]
+  wire [6:0] s_2_out = LeftShifter_2_io_out; // @[Multiplier4Bit.scala 13:{26,26}]
+  wire [6:0] s_3_out = LeftShifter_3_io_out; // @[Multiplier4Bit.scala 13:{26,26}]
+  LeftShifter LeftShifter ( // @[Multiplier4Bit.scala 13:33]
+    .io_in(LeftShifter_io_in),
+    .io_shiftAmount(LeftShifter_io_shiftAmount),
+    .io_out(LeftShifter_io_out)
   );
-  AdderNBit adder8bit_1 ( // @[Multiplier4Bit.scala 20:27]
-    .io_a(adder8bit_1_io_a),
-    .io_b(adder8bit_1_io_b),
-    .io_sum(adder8bit_1_io_sum)
+  LeftShifter LeftShifter_1 ( // @[Multiplier4Bit.scala 13:33]
+    .io_in(LeftShifter_1_io_in),
+    .io_shiftAmount(LeftShifter_1_io_shiftAmount),
+    .io_out(LeftShifter_1_io_out)
   );
-  AdderNBit adder8bit_2 ( // @[Multiplier4Bit.scala 25:27]
-    .io_a(adder8bit_2_io_a),
-    .io_b(adder8bit_2_io_b),
-    .io_sum(adder8bit_2_io_sum)
+  LeftShifter LeftShifter_2 ( // @[Multiplier4Bit.scala 13:33]
+    .io_in(LeftShifter_2_io_in),
+    .io_shiftAmount(LeftShifter_2_io_shiftAmount),
+    .io_out(LeftShifter_2_io_out)
   );
-  assign io_result = adder8bit_2_io_sum; // @[Multiplier4Bit.scala 30:13]
-  assign s1_io_in = io_a; // @[Multiplier4Bit.scala 16:12]
-  assign s1_io_shiftAmount = io_b[2:1]; // @[Multiplier4Bit.scala 17:27]
-  assign adder8bit_1_io_a = io_b[0] ? _adder8bit_1_io_a_T_1 : 8'h0; // @[Multiplier4Bit.scala 23:25]
-  assign adder8bit_1_io_b = {2'h0,s1_io_out}; // @[Cat.scala 33:92]
-  assign adder8bit_2_io_a = adder8bit_1_io_sum; // @[Multiplier4Bit.scala 27:20]
-  assign adder8bit_2_io_b = io_b[3] ? _adder8bit_2_io_b_T_1 : 8'h0; // @[Multiplier4Bit.scala 28:25]
+  LeftShifter LeftShifter_3 ( // @[Multiplier4Bit.scala 13:33]
+    .io_in(LeftShifter_3_io_in),
+    .io_shiftAmount(LeftShifter_3_io_shiftAmount),
+    .io_out(LeftShifter_3_io_out)
+  );
+  AdderNBit AdderNBit ( // @[Multiplier4Bit.scala 19:38]
+    .io_a(AdderNBit_io_a),
+    .io_b(AdderNBit_io_b),
+    .io_sum(AdderNBit_io_sum)
+  );
+  AdderNBit AdderNBit_1 ( // @[Multiplier4Bit.scala 19:38]
+    .io_a(AdderNBit_1_io_a),
+    .io_b(AdderNBit_1_io_b),
+    .io_sum(AdderNBit_1_io_sum)
+  );
+  AdderNBit AdderNBit_2 ( // @[Multiplier4Bit.scala 19:38]
+    .io_a(AdderNBit_2_io_a),
+    .io_b(AdderNBit_2_io_b),
+    .io_sum(AdderNBit_2_io_sum)
+  );
+  assign io_result = AdderNBit_2_io_sum; // @[Multiplier4Bit.scala 19:{31,31}]
+  assign LeftShifter_io_in = io_b[0] ? io_a : 4'h0; // @[Multiplier4Bit.scala 16:19]
+  assign LeftShifter_io_shiftAmount = 2'h0; // @[Multiplier4Bit.scala 17:28]
+  assign LeftShifter_1_io_in = io_b[1] ? io_a : 4'h0; // @[Multiplier4Bit.scala 16:19]
+  assign LeftShifter_1_io_shiftAmount = io_b[1] ? 2'h1 : 2'h0; // @[Multiplier4Bit.scala 17:28]
+  assign LeftShifter_2_io_in = io_b[2] ? io_a : 4'h0; // @[Multiplier4Bit.scala 16:19]
+  assign LeftShifter_2_io_shiftAmount = io_b[2] ? 2'h2 : 2'h0; // @[Multiplier4Bit.scala 17:28]
+  assign LeftShifter_3_io_in = io_b[3] ? io_a : 4'h0; // @[Multiplier4Bit.scala 16:19]
+  assign LeftShifter_3_io_shiftAmount = io_b[3] ? 2'h3 : 2'h0; // @[Multiplier4Bit.scala 17:28]
+  assign AdderNBit_io_a = {1'h0,s_0_out}; // @[Cat.scala 33:92]
+  assign AdderNBit_io_b = {1'h0,s_1_out}; // @[Cat.scala 33:92]
+  assign AdderNBit_1_io_a = {1'h0,s_2_out}; // @[Cat.scala 33:92]
+  assign AdderNBit_1_io_b = {1'h0,s_3_out}; // @[Cat.scala 33:92]
+  assign AdderNBit_2_io_a = AdderNBit_io_sum; // @[Multiplier4Bit.scala 19:{31,31}]
+  assign AdderNBit_2_io_b = AdderNBit_1_io_sum; // @[Multiplier4Bit.scala 19:{31,31}]
 endmodule

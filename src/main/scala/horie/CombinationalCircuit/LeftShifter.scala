@@ -7,7 +7,7 @@ class LeftShifter extends Module{
   val io = IO(new Bundle{
     val in = Input(UInt(4.W))
     val shiftAmount = Input(UInt(2.W))
-    val out =Output(UInt(6.W))
+    val out =Output(UInt(7.W))
   })
 
   io.out := io.in << io.shiftAmount

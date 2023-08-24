@@ -2,7 +2,31 @@ circuit Multiplier4Bit :
   module LeftShifter :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<6>}
+    output io : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<7>}
+
+    node _io_out_T = dshl(io.in, io.shiftAmount) @[LeftShifter.scala 13:19]
+    io.out <= _io_out_T @[LeftShifter.scala 13:10]
+
+  module LeftShifter_1 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<7>}
+
+    node _io_out_T = dshl(io.in, io.shiftAmount) @[LeftShifter.scala 13:19]
+    io.out <= _io_out_T @[LeftShifter.scala 13:10]
+
+  module LeftShifter_2 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<7>}
+
+    node _io_out_T = dshl(io.in, io.shiftAmount) @[LeftShifter.scala 13:19]
+    io.out <= _io_out_T @[LeftShifter.scala 13:10]
+
+  module LeftShifter_3 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<7>}
 
     node _io_out_T = dshl(io.in, io.shiftAmount) @[LeftShifter.scala 13:19]
     io.out <= _io_out_T @[LeftShifter.scala 13:10]
@@ -909,36 +933,548 @@ circuit Multiplier4Bit :
     io.sum <= _io_sum_T @[AdderNBit.scala 31:10]
     io.carryOut <= f[7].carryOut @[AdderNBit.scala 32:15]
 
+  module HalfAdder_32 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_33 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_16 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_32 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_33 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_34 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_35 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_17 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_34 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_35 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_36 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_37 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_18 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_36 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_37 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_38 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_39 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_19 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_38 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_39 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_40 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_41 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_20 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_40 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_41 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_42 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_43 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_21 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_42 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_43 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_44 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_45 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_22 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_44 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_45 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module HalfAdder_46 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module HalfAdder_47 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    node _io_sum_T = xor(io.a, io.b) @[HalfAdder.scala 11:18]
+    io.sum <= _io_sum_T @[HalfAdder.scala 11:10]
+    node _io_carryOut_T = and(io.a, io.b) @[HalfAdder.scala 12:23]
+    io.carryOut <= _io_carryOut_T @[HalfAdder.scala 12:15]
+
+  module FullAdder_23 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}
+
+    inst h1 of HalfAdder_46 @[FullAdder.scala 15:17]
+    h1.clock <= clock
+    h1.reset <= reset
+    inst h2 of HalfAdder_47 @[FullAdder.scala 16:18]
+    h2.clock <= clock
+    h2.reset <= reset
+    h1.io.a <= io.a @[FullAdder.scala 21:11]
+    h1.io.b <= io.b @[FullAdder.scala 22:11]
+    h2.io.a <= h1.io.sum @[FullAdder.scala 23:11]
+    h2.io.b <= io.carryIn @[FullAdder.scala 24:11]
+    io.sum <= h2.io.sum @[FullAdder.scala 25:10]
+    node _io_carryOut_T = or(h1.io.carryOut, h2.io.carryOut) @[FullAdder.scala 26:33]
+    io.carryOut <= _io_carryOut_T @[FullAdder.scala 26:15]
+
+  module AdderNBit_2 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip a : UInt<8>, flip b : UInt<8>, flip carryIn : UInt<1>, sum : UInt<8>, carryOut : UInt<1>}
+
+    inst FullAdder of FullAdder_16 @[AdderNBit.scala 17:33]
+    FullAdder.clock <= clock
+    FullAdder.reset <= reset
+    inst FullAdder_1 of FullAdder_17 @[AdderNBit.scala 17:33]
+    FullAdder_1.clock <= clock
+    FullAdder_1.reset <= reset
+    inst FullAdder_2 of FullAdder_18 @[AdderNBit.scala 17:33]
+    FullAdder_2.clock <= clock
+    FullAdder_2.reset <= reset
+    inst FullAdder_3 of FullAdder_19 @[AdderNBit.scala 17:33]
+    FullAdder_3.clock <= clock
+    FullAdder_3.reset <= reset
+    inst FullAdder_4 of FullAdder_20 @[AdderNBit.scala 17:33]
+    FullAdder_4.clock <= clock
+    FullAdder_4.reset <= reset
+    inst FullAdder_5 of FullAdder_21 @[AdderNBit.scala 17:33]
+    FullAdder_5.clock <= clock
+    FullAdder_5.reset <= reset
+    inst FullAdder_6 of FullAdder_22 @[AdderNBit.scala 17:33]
+    FullAdder_6.clock <= clock
+    FullAdder_6.reset <= reset
+    inst FullAdder_7 of FullAdder_23 @[AdderNBit.scala 17:33]
+    FullAdder_7.clock <= clock
+    FullAdder_7.reset <= reset
+    wire f : { flip a : UInt<1>, flip b : UInt<1>, flip carryIn : UInt<1>, sum : UInt<1>, carryOut : UInt<1>}[8] @[AdderNBit.scala 17:26]
+    f[0].carryOut <= FullAdder.io.carryOut @[AdderNBit.scala 17:26]
+    f[0].sum <= FullAdder.io.sum @[AdderNBit.scala 17:26]
+    FullAdder.io.carryIn <= f[0].carryIn @[AdderNBit.scala 17:26]
+    FullAdder.io.b <= f[0].b @[AdderNBit.scala 17:26]
+    FullAdder.io.a <= f[0].a @[AdderNBit.scala 17:26]
+    f[1].carryOut <= FullAdder_1.io.carryOut @[AdderNBit.scala 17:26]
+    f[1].sum <= FullAdder_1.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_1.io.carryIn <= f[1].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_1.io.b <= f[1].b @[AdderNBit.scala 17:26]
+    FullAdder_1.io.a <= f[1].a @[AdderNBit.scala 17:26]
+    f[2].carryOut <= FullAdder_2.io.carryOut @[AdderNBit.scala 17:26]
+    f[2].sum <= FullAdder_2.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_2.io.carryIn <= f[2].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_2.io.b <= f[2].b @[AdderNBit.scala 17:26]
+    FullAdder_2.io.a <= f[2].a @[AdderNBit.scala 17:26]
+    f[3].carryOut <= FullAdder_3.io.carryOut @[AdderNBit.scala 17:26]
+    f[3].sum <= FullAdder_3.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_3.io.carryIn <= f[3].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_3.io.b <= f[3].b @[AdderNBit.scala 17:26]
+    FullAdder_3.io.a <= f[3].a @[AdderNBit.scala 17:26]
+    f[4].carryOut <= FullAdder_4.io.carryOut @[AdderNBit.scala 17:26]
+    f[4].sum <= FullAdder_4.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_4.io.carryIn <= f[4].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_4.io.b <= f[4].b @[AdderNBit.scala 17:26]
+    FullAdder_4.io.a <= f[4].a @[AdderNBit.scala 17:26]
+    f[5].carryOut <= FullAdder_5.io.carryOut @[AdderNBit.scala 17:26]
+    f[5].sum <= FullAdder_5.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_5.io.carryIn <= f[5].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_5.io.b <= f[5].b @[AdderNBit.scala 17:26]
+    FullAdder_5.io.a <= f[5].a @[AdderNBit.scala 17:26]
+    f[6].carryOut <= FullAdder_6.io.carryOut @[AdderNBit.scala 17:26]
+    f[6].sum <= FullAdder_6.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_6.io.carryIn <= f[6].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_6.io.b <= f[6].b @[AdderNBit.scala 17:26]
+    FullAdder_6.io.a <= f[6].a @[AdderNBit.scala 17:26]
+    f[7].carryOut <= FullAdder_7.io.carryOut @[AdderNBit.scala 17:26]
+    f[7].sum <= FullAdder_7.io.sum @[AdderNBit.scala 17:26]
+    FullAdder_7.io.carryIn <= f[7].carryIn @[AdderNBit.scala 17:26]
+    FullAdder_7.io.b <= f[7].b @[AdderNBit.scala 17:26]
+    FullAdder_7.io.a <= f[7].a @[AdderNBit.scala 17:26]
+    wire carries : UInt<1>[9] @[AdderNBit.scala 19:20]
+    wire sum : UInt<1>[8] @[AdderNBit.scala 20:16]
+    carries[0] <= io.carryIn @[AdderNBit.scala 22:13]
+    node _f_0_a_T = bits(io.a, 0, 0) @[AdderNBit.scala 24:18]
+    f[0].a <= _f_0_a_T @[AdderNBit.scala 24:12]
+    node _f_0_b_T = bits(io.b, 0, 0) @[AdderNBit.scala 25:19]
+    f[0].b <= _f_0_b_T @[AdderNBit.scala 25:12]
+    f[0].carryIn <= carries[0] @[AdderNBit.scala 26:18]
+    sum[0] <= f[0].sum @[AdderNBit.scala 27:12]
+    carries[1] <= f[0].carryOut @[AdderNBit.scala 28:18]
+    node _f_1_a_T = bits(io.a, 1, 1) @[AdderNBit.scala 24:18]
+    f[1].a <= _f_1_a_T @[AdderNBit.scala 24:12]
+    node _f_1_b_T = bits(io.b, 1, 1) @[AdderNBit.scala 25:19]
+    f[1].b <= _f_1_b_T @[AdderNBit.scala 25:12]
+    f[1].carryIn <= carries[1] @[AdderNBit.scala 26:18]
+    sum[1] <= f[1].sum @[AdderNBit.scala 27:12]
+    carries[2] <= f[1].carryOut @[AdderNBit.scala 28:18]
+    node _f_2_a_T = bits(io.a, 2, 2) @[AdderNBit.scala 24:18]
+    f[2].a <= _f_2_a_T @[AdderNBit.scala 24:12]
+    node _f_2_b_T = bits(io.b, 2, 2) @[AdderNBit.scala 25:19]
+    f[2].b <= _f_2_b_T @[AdderNBit.scala 25:12]
+    f[2].carryIn <= carries[2] @[AdderNBit.scala 26:18]
+    sum[2] <= f[2].sum @[AdderNBit.scala 27:12]
+    carries[3] <= f[2].carryOut @[AdderNBit.scala 28:18]
+    node _f_3_a_T = bits(io.a, 3, 3) @[AdderNBit.scala 24:18]
+    f[3].a <= _f_3_a_T @[AdderNBit.scala 24:12]
+    node _f_3_b_T = bits(io.b, 3, 3) @[AdderNBit.scala 25:19]
+    f[3].b <= _f_3_b_T @[AdderNBit.scala 25:12]
+    f[3].carryIn <= carries[3] @[AdderNBit.scala 26:18]
+    sum[3] <= f[3].sum @[AdderNBit.scala 27:12]
+    carries[4] <= f[3].carryOut @[AdderNBit.scala 28:18]
+    node _f_4_a_T = bits(io.a, 4, 4) @[AdderNBit.scala 24:18]
+    f[4].a <= _f_4_a_T @[AdderNBit.scala 24:12]
+    node _f_4_b_T = bits(io.b, 4, 4) @[AdderNBit.scala 25:19]
+    f[4].b <= _f_4_b_T @[AdderNBit.scala 25:12]
+    f[4].carryIn <= carries[4] @[AdderNBit.scala 26:18]
+    sum[4] <= f[4].sum @[AdderNBit.scala 27:12]
+    carries[5] <= f[4].carryOut @[AdderNBit.scala 28:18]
+    node _f_5_a_T = bits(io.a, 5, 5) @[AdderNBit.scala 24:18]
+    f[5].a <= _f_5_a_T @[AdderNBit.scala 24:12]
+    node _f_5_b_T = bits(io.b, 5, 5) @[AdderNBit.scala 25:19]
+    f[5].b <= _f_5_b_T @[AdderNBit.scala 25:12]
+    f[5].carryIn <= carries[5] @[AdderNBit.scala 26:18]
+    sum[5] <= f[5].sum @[AdderNBit.scala 27:12]
+    carries[6] <= f[5].carryOut @[AdderNBit.scala 28:18]
+    node _f_6_a_T = bits(io.a, 6, 6) @[AdderNBit.scala 24:18]
+    f[6].a <= _f_6_a_T @[AdderNBit.scala 24:12]
+    node _f_6_b_T = bits(io.b, 6, 6) @[AdderNBit.scala 25:19]
+    f[6].b <= _f_6_b_T @[AdderNBit.scala 25:12]
+    f[6].carryIn <= carries[6] @[AdderNBit.scala 26:18]
+    sum[6] <= f[6].sum @[AdderNBit.scala 27:12]
+    carries[7] <= f[6].carryOut @[AdderNBit.scala 28:18]
+    node _f_7_a_T = bits(io.a, 7, 7) @[AdderNBit.scala 24:18]
+    f[7].a <= _f_7_a_T @[AdderNBit.scala 24:12]
+    node _f_7_b_T = bits(io.b, 7, 7) @[AdderNBit.scala 25:19]
+    f[7].b <= _f_7_b_T @[AdderNBit.scala 25:12]
+    f[7].carryIn <= carries[7] @[AdderNBit.scala 26:18]
+    sum[7] <= f[7].sum @[AdderNBit.scala 27:12]
+    carries[8] <= f[7].carryOut @[AdderNBit.scala 28:18]
+    node io_sum_lo_lo = cat(sum[1], sum[0]) @[AdderNBit.scala 31:17]
+    node io_sum_lo_hi = cat(sum[3], sum[2]) @[AdderNBit.scala 31:17]
+    node io_sum_lo = cat(io_sum_lo_hi, io_sum_lo_lo) @[AdderNBit.scala 31:17]
+    node io_sum_hi_lo = cat(sum[5], sum[4]) @[AdderNBit.scala 31:17]
+    node io_sum_hi_hi = cat(sum[7], sum[6]) @[AdderNBit.scala 31:17]
+    node io_sum_hi = cat(io_sum_hi_hi, io_sum_hi_lo) @[AdderNBit.scala 31:17]
+    node _io_sum_T = cat(io_sum_hi, io_sum_lo) @[AdderNBit.scala 31:17]
+    io.sum <= _io_sum_T @[AdderNBit.scala 31:10]
+    io.carryOut <= f[7].carryOut @[AdderNBit.scala 32:15]
+
   module Multiplier4Bit :
     input clock : Clock
     input reset : UInt<1>
     output io : { flip a : UInt<4>, flip b : UInt<4>, result : UInt<8>}
 
-    inst s1 of LeftShifter @[Multiplier4Bit.scala 14:18]
-    s1.clock <= clock
-    s1.reset <= reset
-    s1.io.in <= io.a @[Multiplier4Bit.scala 16:12]
-    node _s1_io_shiftAmount_T = bits(io.b, 2, 1) @[Multiplier4Bit.scala 17:27]
-    s1.io.shiftAmount <= _s1_io_shiftAmount_T @[Multiplier4Bit.scala 17:21]
-    inst adder8bit_1 of AdderNBit @[Multiplier4Bit.scala 20:27]
-    adder8bit_1.clock <= clock
-    adder8bit_1.reset <= reset
-    adder8bit_1.io.carryIn <= UInt<1>("h0") @[Multiplier4Bit.scala 21:26]
-    node _adder8bit_1_io_b_T = cat(UInt<2>("h0"), s1.io.out) @[Cat.scala 33:92]
-    adder8bit_1.io.b <= _adder8bit_1_io_b_T @[Multiplier4Bit.scala 22:20]
-    node _adder8bit_1_io_a_T = bits(io.b, 0, 0) @[Multiplier4Bit.scala 23:30]
-    node _adder8bit_1_io_a_T_1 = cat(UInt<4>("h0"), io.a) @[Cat.scala 33:92]
-    node _adder8bit_1_io_a_T_2 = mux(_adder8bit_1_io_a_T, _adder8bit_1_io_a_T_1, UInt<8>("h0")) @[Multiplier4Bit.scala 23:25]
-    adder8bit_1.io.a <= _adder8bit_1_io_a_T_2 @[Multiplier4Bit.scala 23:20]
-    inst adder8bit_2 of AdderNBit_1 @[Multiplier4Bit.scala 25:27]
-    adder8bit_2.clock <= clock
-    adder8bit_2.reset <= reset
-    adder8bit_2.io.carryIn <= UInt<1>("h0") @[Multiplier4Bit.scala 26:26]
-    adder8bit_2.io.a <= adder8bit_1.io.sum @[Multiplier4Bit.scala 27:20]
-    node _adder8bit_2_io_b_T = bits(io.b, 3, 3) @[Multiplier4Bit.scala 28:30]
-    node adder8bit_2_io_b_hi = cat(UInt<1>("h0"), io.a) @[Cat.scala 33:92]
-    node _adder8bit_2_io_b_T_1 = cat(adder8bit_2_io_b_hi, UInt<3>("h0")) @[Cat.scala 33:92]
-    node _adder8bit_2_io_b_T_2 = mux(_adder8bit_2_io_b_T, _adder8bit_2_io_b_T_1, UInt<8>("h0")) @[Multiplier4Bit.scala 28:25]
-    adder8bit_2.io.b <= _adder8bit_2_io_b_T_2 @[Multiplier4Bit.scala 28:20]
-    io.result <= adder8bit_2.io.sum @[Multiplier4Bit.scala 30:13]
+    inst LeftShifter of LeftShifter @[Multiplier4Bit.scala 13:33]
+    LeftShifter.clock <= clock
+    LeftShifter.reset <= reset
+    inst LeftShifter_1 of LeftShifter_1 @[Multiplier4Bit.scala 13:33]
+    LeftShifter_1.clock <= clock
+    LeftShifter_1.reset <= reset
+    inst LeftShifter_2 of LeftShifter_2 @[Multiplier4Bit.scala 13:33]
+    LeftShifter_2.clock <= clock
+    LeftShifter_2.reset <= reset
+    inst LeftShifter_3 of LeftShifter_3 @[Multiplier4Bit.scala 13:33]
+    LeftShifter_3.clock <= clock
+    LeftShifter_3.reset <= reset
+    wire s : { flip in : UInt<4>, flip shiftAmount : UInt<2>, out : UInt<7>}[4] @[Multiplier4Bit.scala 13:26]
+    s[0].out <= LeftShifter.io.out @[Multiplier4Bit.scala 13:26]
+    LeftShifter.io.shiftAmount <= s[0].shiftAmount @[Multiplier4Bit.scala 13:26]
+    LeftShifter.io.in <= s[0].in @[Multiplier4Bit.scala 13:26]
+    s[1].out <= LeftShifter_1.io.out @[Multiplier4Bit.scala 13:26]
+    LeftShifter_1.io.shiftAmount <= s[1].shiftAmount @[Multiplier4Bit.scala 13:26]
+    LeftShifter_1.io.in <= s[1].in @[Multiplier4Bit.scala 13:26]
+    s[2].out <= LeftShifter_2.io.out @[Multiplier4Bit.scala 13:26]
+    LeftShifter_2.io.shiftAmount <= s[2].shiftAmount @[Multiplier4Bit.scala 13:26]
+    LeftShifter_2.io.in <= s[2].in @[Multiplier4Bit.scala 13:26]
+    s[3].out <= LeftShifter_3.io.out @[Multiplier4Bit.scala 13:26]
+    LeftShifter_3.io.shiftAmount <= s[3].shiftAmount @[Multiplier4Bit.scala 13:26]
+    LeftShifter_3.io.in <= s[3].in @[Multiplier4Bit.scala 13:26]
+    node _s_0_in_T = bits(io.b, 0, 0) @[Multiplier4Bit.scala 16:24]
+    node _s_0_in_T_1 = mux(_s_0_in_T, io.a, UInt<4>("h0")) @[Multiplier4Bit.scala 16:19]
+    s[0].in <= _s_0_in_T_1 @[Multiplier4Bit.scala 16:13]
+    node _s_0_shiftAmount_T = bits(io.b, 0, 0) @[Multiplier4Bit.scala 17:33]
+    node _s_0_shiftAmount_T_1 = mux(_s_0_shiftAmount_T, UInt<2>("h0"), UInt<2>("h0")) @[Multiplier4Bit.scala 17:28]
+    s[0].shiftAmount <= _s_0_shiftAmount_T_1 @[Multiplier4Bit.scala 17:22]
+    node _s_1_in_T = bits(io.b, 1, 1) @[Multiplier4Bit.scala 16:24]
+    node _s_1_in_T_1 = mux(_s_1_in_T, io.a, UInt<4>("h0")) @[Multiplier4Bit.scala 16:19]
+    s[1].in <= _s_1_in_T_1 @[Multiplier4Bit.scala 16:13]
+    node _s_1_shiftAmount_T = bits(io.b, 1, 1) @[Multiplier4Bit.scala 17:33]
+    node _s_1_shiftAmount_T_1 = mux(_s_1_shiftAmount_T, UInt<2>("h1"), UInt<2>("h0")) @[Multiplier4Bit.scala 17:28]
+    s[1].shiftAmount <= _s_1_shiftAmount_T_1 @[Multiplier4Bit.scala 17:22]
+    node _s_2_in_T = bits(io.b, 2, 2) @[Multiplier4Bit.scala 16:24]
+    node _s_2_in_T_1 = mux(_s_2_in_T, io.a, UInt<4>("h0")) @[Multiplier4Bit.scala 16:19]
+    s[2].in <= _s_2_in_T_1 @[Multiplier4Bit.scala 16:13]
+    node _s_2_shiftAmount_T = bits(io.b, 2, 2) @[Multiplier4Bit.scala 17:33]
+    node _s_2_shiftAmount_T_1 = mux(_s_2_shiftAmount_T, UInt<2>("h2"), UInt<2>("h0")) @[Multiplier4Bit.scala 17:28]
+    s[2].shiftAmount <= _s_2_shiftAmount_T_1 @[Multiplier4Bit.scala 17:22]
+    node _s_3_in_T = bits(io.b, 3, 3) @[Multiplier4Bit.scala 16:24]
+    node _s_3_in_T_1 = mux(_s_3_in_T, io.a, UInt<4>("h0")) @[Multiplier4Bit.scala 16:19]
+    s[3].in <= _s_3_in_T_1 @[Multiplier4Bit.scala 16:13]
+    node _s_3_shiftAmount_T = bits(io.b, 3, 3) @[Multiplier4Bit.scala 17:33]
+    node _s_3_shiftAmount_T_1 = mux(_s_3_shiftAmount_T, UInt<2>("h3"), UInt<2>("h0")) @[Multiplier4Bit.scala 17:28]
+    s[3].shiftAmount <= _s_3_shiftAmount_T_1 @[Multiplier4Bit.scala 17:22]
+    inst AdderNBit of AdderNBit @[Multiplier4Bit.scala 19:38]
+    AdderNBit.clock <= clock
+    AdderNBit.reset <= reset
+    inst AdderNBit_1 of AdderNBit_1 @[Multiplier4Bit.scala 19:38]
+    AdderNBit_1.clock <= clock
+    AdderNBit_1.reset <= reset
+    inst AdderNBit_2 of AdderNBit_2 @[Multiplier4Bit.scala 19:38]
+    AdderNBit_2.clock <= clock
+    AdderNBit_2.reset <= reset
+    wire adders : { flip a : UInt<8>, flip b : UInt<8>, flip carryIn : UInt<1>, sum : UInt<8>, carryOut : UInt<1>}[3] @[Multiplier4Bit.scala 19:31]
+    adders[0].carryOut <= AdderNBit.io.carryOut @[Multiplier4Bit.scala 19:31]
+    adders[0].sum <= AdderNBit.io.sum @[Multiplier4Bit.scala 19:31]
+    AdderNBit.io.carryIn <= adders[0].carryIn @[Multiplier4Bit.scala 19:31]
+    AdderNBit.io.b <= adders[0].b @[Multiplier4Bit.scala 19:31]
+    AdderNBit.io.a <= adders[0].a @[Multiplier4Bit.scala 19:31]
+    adders[1].carryOut <= AdderNBit_1.io.carryOut @[Multiplier4Bit.scala 19:31]
+    adders[1].sum <= AdderNBit_1.io.sum @[Multiplier4Bit.scala 19:31]
+    AdderNBit_1.io.carryIn <= adders[1].carryIn @[Multiplier4Bit.scala 19:31]
+    AdderNBit_1.io.b <= adders[1].b @[Multiplier4Bit.scala 19:31]
+    AdderNBit_1.io.a <= adders[1].a @[Multiplier4Bit.scala 19:31]
+    adders[2].carryOut <= AdderNBit_2.io.carryOut @[Multiplier4Bit.scala 19:31]
+    adders[2].sum <= AdderNBit_2.io.sum @[Multiplier4Bit.scala 19:31]
+    AdderNBit_2.io.carryIn <= adders[2].carryIn @[Multiplier4Bit.scala 19:31]
+    AdderNBit_2.io.b <= adders[2].b @[Multiplier4Bit.scala 19:31]
+    AdderNBit_2.io.a <= adders[2].a @[Multiplier4Bit.scala 19:31]
+    adders[0].carryIn <= UInt<1>("h0") @[Multiplier4Bit.scala 21:23]
+    adders[1].carryIn <= UInt<1>("h0") @[Multiplier4Bit.scala 21:23]
+    adders[2].carryIn <= UInt<1>("h0") @[Multiplier4Bit.scala 21:23]
+    node _adders_0_a_T = cat(UInt<1>("h0"), s[0].out) @[Cat.scala 33:92]
+    adders[0].a <= _adders_0_a_T @[Multiplier4Bit.scala 22:15]
+    node _adders_0_b_T = cat(UInt<1>("h0"), s[1].out) @[Cat.scala 33:92]
+    adders[0].b <= _adders_0_b_T @[Multiplier4Bit.scala 23:15]
+    node _adders_1_a_T = cat(UInt<1>("h0"), s[2].out) @[Cat.scala 33:92]
+    adders[1].a <= _adders_1_a_T @[Multiplier4Bit.scala 24:15]
+    node _adders_1_b_T = cat(UInt<1>("h0"), s[3].out) @[Cat.scala 33:92]
+    adders[1].b <= _adders_1_b_T @[Multiplier4Bit.scala 25:15]
+    adders[2].a <= adders[0].sum @[Multiplier4Bit.scala 26:15]
+    adders[2].b <= adders[1].sum @[Multiplier4Bit.scala 27:15]
+    io.result <= adders[2].sum @[Multiplier4Bit.scala 29:13]
 

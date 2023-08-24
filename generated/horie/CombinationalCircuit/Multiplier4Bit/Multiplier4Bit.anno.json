@@ -1,303 +1,477 @@
 [
   {
     "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|LeftShifter",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/LeftShifter:LeftShifter",
+    "index":0.0
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|LeftShifter_1",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/LeftShifter_1:LeftShifter",
+    "index":0.012658227848101266
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|LeftShifter_2",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/LeftShifter_2:LeftShifter",
+    "index":0.02531645569620253
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|LeftShifter_3",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/LeftShifter_3:LeftShifter",
+    "index":0.0379746835443038
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder:FullAdder/h1:HalfAdder",
-    "index":0.0196078431372549
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder:FullAdder/h1:HalfAdder",
+    "index":0.05063291139240506
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_1",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder:FullAdder/h2:HalfAdder",
-    "index":0.0392156862745098
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder:FullAdder/h2:HalfAdder",
+    "index":0.06329113924050633
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder:FullAdder",
-    "index":0.058823529411764705
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder:FullAdder",
+    "index":0.0759493670886076
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_2",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_1:FullAdder/h1:HalfAdder",
-    "index":0.0784313725490196
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_1:FullAdder/h1:HalfAdder",
+    "index":0.08860759493670886
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_3",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_1:FullAdder/h2:HalfAdder",
-    "index":0.09803921568627451
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_1:FullAdder/h2:HalfAdder",
+    "index":0.10126582278481013
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_1",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_1:FullAdder",
-    "index":0.11764705882352941
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_1:FullAdder",
+    "index":0.11392405063291139
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_4",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_2:FullAdder/h1:HalfAdder",
-    "index":0.13725490196078433
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_2:FullAdder/h1:HalfAdder",
+    "index":0.12658227848101267
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_5",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_2:FullAdder/h2:HalfAdder",
-    "index":0.1568627450980392
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_2:FullAdder/h2:HalfAdder",
+    "index":0.13924050632911392
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_2",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_2:FullAdder",
-    "index":0.17647058823529413
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_2:FullAdder",
+    "index":0.1518987341772152
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_6",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_3:FullAdder/h1:HalfAdder",
-    "index":0.19607843137254902
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_3:FullAdder/h1:HalfAdder",
+    "index":0.16455696202531644
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_7",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_3:FullAdder/h2:HalfAdder",
-    "index":0.21568627450980393
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_3:FullAdder/h2:HalfAdder",
+    "index":0.17721518987341772
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_3",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_3:FullAdder",
-    "index":0.23529411764705882
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_3:FullAdder",
+    "index":0.189873417721519
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_8",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_4:FullAdder/h1:HalfAdder",
-    "index":0.2549019607843137
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_4:FullAdder/h1:HalfAdder",
+    "index":0.20253164556962025
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_9",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_4:FullAdder/h2:HalfAdder",
-    "index":0.27450980392156865
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_4:FullAdder/h2:HalfAdder",
+    "index":0.21518987341772153
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_4",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_4:FullAdder",
-    "index":0.29411764705882354
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_4:FullAdder",
+    "index":0.22784810126582278
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_10",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_5:FullAdder/h1:HalfAdder",
-    "index":0.3137254901960784
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_5:FullAdder/h1:HalfAdder",
+    "index":0.24050632911392406
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_11",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_5:FullAdder/h2:HalfAdder",
-    "index":0.3333333333333333
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_5:FullAdder/h2:HalfAdder",
+    "index":0.25316455696202533
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_5",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_5:FullAdder",
-    "index":0.35294117647058826
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_5:FullAdder",
+    "index":0.26582278481012656
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_12",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_6:FullAdder/h1:HalfAdder",
-    "index":0.37254901960784315
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_6:FullAdder/h1:HalfAdder",
+    "index":0.27848101265822783
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_13",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_6:FullAdder/h2:HalfAdder",
-    "index":0.39215686274509803
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_6:FullAdder/h2:HalfAdder",
+    "index":0.2911392405063291
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_6",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_6:FullAdder",
-    "index":0.4117647058823529
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_6:FullAdder",
+    "index":0.3037974683544304
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_14",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_7:FullAdder/h1:HalfAdder",
-    "index":0.43137254901960786
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_7:FullAdder/h1:HalfAdder",
+    "index":0.31645569620253167
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_15",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_7:FullAdder/h2:HalfAdder",
-    "index":0.45098039215686275
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_7:FullAdder/h2:HalfAdder",
+    "index":0.3291139240506329
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_7",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit/FullAdder_7:FullAdder",
-    "index":0.47058823529411764
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit/FullAdder_7:FullAdder",
+    "index":0.34177215189873417
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|AdderNBit",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_1:AdderNBit",
-    "index":0.49019607843137253
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit:AdderNBit",
+    "index":0.35443037974683544
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_16",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder:FullAdder/h1:HalfAdder",
-    "index":0.5098039215686274
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder:FullAdder/h1:HalfAdder",
+    "index":0.3670886075949367
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_17",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder:FullAdder/h2:HalfAdder",
-    "index":0.5294117647058824
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder:FullAdder/h2:HalfAdder",
+    "index":0.379746835443038
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_8",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder:FullAdder",
-    "index":0.5490196078431373
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder:FullAdder",
+    "index":0.3924050632911392
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_18",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_1:FullAdder/h1:HalfAdder",
-    "index":0.5686274509803921
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_1:FullAdder/h1:HalfAdder",
+    "index":0.4050632911392405
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_19",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_1:FullAdder/h2:HalfAdder",
-    "index":0.5882352941176471
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_1:FullAdder/h2:HalfAdder",
+    "index":0.4177215189873418
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_9",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_1:FullAdder",
-    "index":0.6078431372549019
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_1:FullAdder",
+    "index":0.43037974683544306
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_20",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_2:FullAdder/h1:HalfAdder",
-    "index":0.6274509803921569
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_2:FullAdder/h1:HalfAdder",
+    "index":0.4430379746835443
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_21",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_2:FullAdder/h2:HalfAdder",
-    "index":0.6470588235294118
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_2:FullAdder/h2:HalfAdder",
+    "index":0.45569620253164556
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_10",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_2:FullAdder",
-    "index":0.6666666666666666
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_2:FullAdder",
+    "index":0.46835443037974683
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_22",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_3:FullAdder/h1:HalfAdder",
-    "index":0.6862745098039216
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_3:FullAdder/h1:HalfAdder",
+    "index":0.4810126582278481
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_23",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_3:FullAdder/h2:HalfAdder",
-    "index":0.7058823529411765
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_3:FullAdder/h2:HalfAdder",
+    "index":0.4936708860759494
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_11",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_3:FullAdder",
-    "index":0.7254901960784313
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_3:FullAdder",
+    "index":0.5063291139240507
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_24",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_4:FullAdder/h1:HalfAdder",
-    "index":0.7450980392156863
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_4:FullAdder/h1:HalfAdder",
+    "index":0.5189873417721519
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_25",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_4:FullAdder/h2:HalfAdder",
-    "index":0.7647058823529411
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_4:FullAdder/h2:HalfAdder",
+    "index":0.5316455696202531
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_12",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_4:FullAdder",
-    "index":0.7843137254901961
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_4:FullAdder",
+    "index":0.5443037974683544
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_26",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_5:FullAdder/h1:HalfAdder",
-    "index":0.803921568627451
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_5:FullAdder/h1:HalfAdder",
+    "index":0.5569620253164557
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_27",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_5:FullAdder/h2:HalfAdder",
-    "index":0.8235294117647058
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_5:FullAdder/h2:HalfAdder",
+    "index":0.569620253164557
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_13",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_5:FullAdder",
-    "index":0.8431372549019608
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_5:FullAdder",
+    "index":0.5822784810126582
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_28",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_6:FullAdder/h1:HalfAdder",
-    "index":0.8627450980392157
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_6:FullAdder/h1:HalfAdder",
+    "index":0.5949367088607594
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_29",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_6:FullAdder/h2:HalfAdder",
-    "index":0.8823529411764706
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_6:FullAdder/h2:HalfAdder",
+    "index":0.6075949367088608
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_14",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_6:FullAdder",
-    "index":0.9019607843137255
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_6:FullAdder",
+    "index":0.620253164556962
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_30",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_7:FullAdder/h1:HalfAdder",
-    "index":0.9215686274509803
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_7:FullAdder/h1:HalfAdder",
+    "index":0.6329113924050633
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|HalfAdder_31",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_7:FullAdder/h2:HalfAdder",
-    "index":0.9411764705882353
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_7:FullAdder/h2:HalfAdder",
+    "index":0.6455696202531646
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|FullAdder_15",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit/FullAdder_7:FullAdder",
-    "index":0.9607843137254902
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit/FullAdder_7:FullAdder",
+    "index":0.6582278481012658
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Multiplier4Bit|AdderNBit_1",
-    "duplicate":"~Multiplier4Bit|Multiplier4Bit/adder8bit_2:AdderNBit",
-    "index":0.9803921568627451
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_1:AdderNBit",
+    "index":0.6708860759493671
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_32",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder:FullAdder/h1:HalfAdder",
+    "index":0.6835443037974683
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_33",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder:FullAdder/h2:HalfAdder",
+    "index":0.6962025316455697
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_16",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder:FullAdder",
+    "index":0.7088607594936709
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_34",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_1:FullAdder/h1:HalfAdder",
+    "index":0.7215189873417721
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_35",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_1:FullAdder/h2:HalfAdder",
+    "index":0.7341772151898734
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_17",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_1:FullAdder",
+    "index":0.7468354430379747
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_36",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_2:FullAdder/h1:HalfAdder",
+    "index":0.759493670886076
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_37",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_2:FullAdder/h2:HalfAdder",
+    "index":0.7721518987341772
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_18",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_2:FullAdder",
+    "index":0.7848101265822784
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_38",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_3:FullAdder/h1:HalfAdder",
+    "index":0.7974683544303798
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_39",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_3:FullAdder/h2:HalfAdder",
+    "index":0.810126582278481
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_19",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_3:FullAdder",
+    "index":0.8227848101265823
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_40",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_4:FullAdder/h1:HalfAdder",
+    "index":0.8354430379746836
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_41",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_4:FullAdder/h2:HalfAdder",
+    "index":0.8481012658227848
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_20",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_4:FullAdder",
+    "index":0.8607594936708861
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_42",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_5:FullAdder/h1:HalfAdder",
+    "index":0.8734177215189873
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_43",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_5:FullAdder/h2:HalfAdder",
+    "index":0.8860759493670886
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_21",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_5:FullAdder",
+    "index":0.8987341772151899
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_44",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_6:FullAdder/h1:HalfAdder",
+    "index":0.9113924050632911
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_45",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_6:FullAdder/h2:HalfAdder",
+    "index":0.9240506329113924
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_22",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_6:FullAdder",
+    "index":0.9367088607594937
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_46",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_7:FullAdder/h1:HalfAdder",
+    "index":0.9493670886075949
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|HalfAdder_47",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_7:FullAdder/h2:HalfAdder",
+    "index":0.9620253164556962
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|FullAdder_23",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit/FullAdder_7:FullAdder",
+    "index":0.9746835443037974
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Multiplier4Bit|AdderNBit_2",
+    "duplicate":"~Multiplier4Bit|Multiplier4Bit/AdderNBit_2:AdderNBit",
+    "index":0.9873417721518988
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",
@@ -311,8 +485,8 @@
     "class":"firrtl.transforms.CombinationalPath",
     "sink":"~Multiplier4Bit|Multiplier4Bit>io_result",
     "sources":[
-      "~Multiplier4Bit|Multiplier4Bit>io_b",
-      "~Multiplier4Bit|Multiplier4Bit>io_a"
+      "~Multiplier4Bit|Multiplier4Bit>io_a",
+      "~Multiplier4Bit|Multiplier4Bit>io_b"
     ]
   }
 ]
