@@ -1,0 +1,30 @@
+import chisel3.stage.ChiselGeneratorAnnotation
+import chisel3._
+import chisel3.iotesters._
+import chisel3.util._
+
+val f = VecInit.fill(n)(Module(new FullAdder).io)
+val carries = Wire(Vec(n+1,UInt(1.W)))
+VecInit.fill only works with hardware
+Vec only works with chisel Data type
+Data wrapped by IO is hardware
+
+object AdderNBitObj extends App{
+    (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/horie/CombinationalCircuit/AdderNBit"),Seq(ChiselGeneratorAnnotation(()=>new AdderNBit(8))))
+      chisel3.iotesters.Driver.execute(args,()=>new AdderNBit(8))(c=>new AdderNBitTest(c))
+}
+class AdderNBitTest(c:AdderNBit) extends PeekPokeTester(c){
+    val startValue = math.pow(2,c.n - 1).toInt
+    for{
+        a <- 0 to startValue
+        b <- startValue to 2*startValue
+        carry <- 0 to 1
+      }{
+          poke(c.io.a,a)
+          poke(c.io.b,b)
+          poke(c.io.carryIn,carry)
+          step(1)
+      }
+}
+
+sbt "runMain Sequential_circuit.Counting -td /data/data/com.termux/files/home/generated/Sequentialcircui --backend-name verilator"
