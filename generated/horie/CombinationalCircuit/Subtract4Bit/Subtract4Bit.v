@@ -42,13 +42,9 @@ module FullAdder(
   assign h2_io_b = io_carryIn; // @[FullAdder.scala 24:11]
 endmodule
 module Adder4Bit(
-  input        clock,
-  input        reset,
   input  [3:0] io_a,
   input  [3:0] io_b,
-  input        io_carryIn,
-  output [3:0] io_sum,
-  output       io_carryOut
+  output [3:0] io_sum
 );
   wire  f1_io_a; // @[Adder4Bit.scala 17:18]
   wire  f1_io_b; // @[Adder4Bit.scala 17:18]
@@ -101,7 +97,6 @@ module Adder4Bit(
     .io_carryOut(f0_io_carryOut)
   );
   assign io_sum = {io_sum_hi,io_sum_lo}; // @[Cat.scala 33:92]
-  assign io_carryOut = f3_io_carryOut; // @[Adder4Bit.scala 39:15]
   assign f1_io_a = io_a[1]; // @[Adder4Bit.scala 26:18]
   assign f1_io_b = io_b[1]; // @[Adder4Bit.scala 27:18]
   assign f1_io_carryIn = f0_io_carryOut; // @[Adder4Bit.scala 28:17]
@@ -113,5 +108,25 @@ module Adder4Bit(
   assign f3_io_carryIn = f2_io_carryOut; // @[Adder4Bit.scala 36:17]
   assign f0_io_a = io_a[0]; // @[Adder4Bit.scala 22:18]
   assign f0_io_b = io_b[0]; // @[Adder4Bit.scala 23:18]
-  assign f0_io_carryIn = io_carryIn; // @[Adder4Bit.scala 24:17]
+  assign f0_io_carryIn = 1'h0; // @[Adder4Bit.scala 24:17]
+endmodule
+module Subtract4Bit(
+  input        clock,
+  input        reset,
+  input  [3:0] io_a,
+  input  [3:0] io_b,
+  output [3:0] io_result
+);
+  wire [3:0] adder_io_a; // @[Subtract4Bit.scala 13:21]
+  wire [3:0] adder_io_b; // @[Subtract4Bit.scala 13:21]
+  wire [3:0] adder_io_sum; // @[Subtract4Bit.scala 13:21]
+  wire [3:0] _b_complement_T = ~io_b; // @[Subtract4Bit.scala 14:22]
+  Adder4Bit adder ( // @[Subtract4Bit.scala 13:21]
+    .io_a(adder_io_a),
+    .io_b(adder_io_b),
+    .io_sum(adder_io_sum)
+  );
+  assign io_result = adder_io_sum; // @[Subtract4Bit.scala 18:13]
+  assign adder_io_a = io_a; // @[Subtract4Bit.scala 16:14]
+  assign adder_io_b = _b_complement_T + 4'h1; // @[Subtract4Bit.scala 14:28]
 endmodule

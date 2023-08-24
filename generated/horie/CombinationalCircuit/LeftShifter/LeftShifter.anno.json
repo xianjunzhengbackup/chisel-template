@@ -1,0 +1,18 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/horie/CombinationalCircuit/LeftShifter"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~LeftShifter|LeftShifter>io_out",
+    "sources":[
+      "~LeftShifter|LeftShifter>io_in",
+      "~LeftShifter|LeftShifter>io_shiftAmount"
+    ]
+  }
+]

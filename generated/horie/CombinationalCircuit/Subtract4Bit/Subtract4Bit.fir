@@ -1,4 +1,4 @@
-circuit Adder4Bit :
+circuit Subtract4Bit :
   module HalfAdder :
     input clock : Clock
     input reset : Reset
@@ -157,7 +157,7 @@ circuit Adder4Bit :
 
   module Adder4Bit :
     input clock : Clock
-    input reset : UInt<1>
+    input reset : Reset
     output io : { flip a : UInt<4>, flip b : UInt<4>, flip carryIn : UInt<1>, sum : UInt<4>, carryOut : UInt<1>}
 
     inst f1 of FullAdder @[Adder4Bit.scala 17:18]
@@ -197,4 +197,20 @@ circuit Adder4Bit :
     node _io_sum_T = cat(io_sum_hi, io_sum_lo) @[Cat.scala 33:92]
     io.sum <= _io_sum_T @[Adder4Bit.scala 38:10]
     io.carryOut <= f3.io.carryOut @[Adder4Bit.scala 39:15]
+
+  module Subtract4Bit :
+    input clock : Clock
+    input reset : UInt<1>
+    output io : { flip a : UInt<4>, flip b : UInt<4>, result : UInt<4>}
+
+    inst adder of Adder4Bit @[Subtract4Bit.scala 13:21]
+    adder.clock <= clock
+    adder.reset <= reset
+    node _b_complement_T = not(io.b) @[Subtract4Bit.scala 14:22]
+    node _b_complement_T_1 = add(_b_complement_T, UInt<1>("h1")) @[Subtract4Bit.scala 14:28]
+    node b_complement = tail(_b_complement_T_1, 1) @[Subtract4Bit.scala 14:28]
+    adder.io.b <= b_complement @[Subtract4Bit.scala 15:14]
+    adder.io.a <= io.a @[Subtract4Bit.scala 16:14]
+    adder.io.carryIn <= UInt<1>("h0") @[Subtract4Bit.scala 17:20]
+    io.result <= adder.io.sum @[Subtract4Bit.scala 18:13]
 
