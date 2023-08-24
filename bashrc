@@ -1,7 +1,7 @@
 export PATH="/data/data/com.termux/files/home/sbt/bin":$PATH
 
 function gitcode() { 
-	echo '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' 
+	echo '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' 
 }   
 
 function chisel_generator(){
