@@ -31,7 +31,7 @@ class Multiplier4Bit extends Module{
 
 object Multiplier4BitObj extends App{
     (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/horie/CombinationalCircuit/Multiplier4Bit"),Seq(ChiselGeneratorAnnotation(()=>new Multiplier4Bit)))
-      chisel3.iotesters.Driver.execute(args,()=>new Multiplier4Bit)(c=>new Multiplier4BitTest(c))
+      chisel3.iotesters.Driver.execute(Array("-td","/data/data/com.termux/files/home/generated/horie/CombinationalCircuit","--backend-name","verilator"),()=>new Multiplier4Bit)(c=>new Multiplier4BitTest(c))
 }
 class Multiplier4BitTest(c:Multiplier4Bit) extends PeekPokeTester(c){
     val startValue =7 

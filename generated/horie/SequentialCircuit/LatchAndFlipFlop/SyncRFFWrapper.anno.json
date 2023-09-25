@@ -1,0 +1,37 @@
+[
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~SyncRFFWrapper|SRLatch",
+    "duplicate":"~SyncRFFWrapper|SyncRFFWrapper/srFF:SyncResetFF/dFF:DFlipFlop/dLatch1:DLatch/srLatch:SRLatch",
+    "index":0.0
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~SyncRFFWrapper|DLatch",
+    "duplicate":"~SyncRFFWrapper|SyncRFFWrapper/srFF:SyncResetFF/dFF:DFlipFlop/dLatch1:DLatch",
+    "index":0.16666666666666666
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~SyncRFFWrapper|SRLatch_1",
+    "duplicate":"~SyncRFFWrapper|SyncRFFWrapper/srFF:SyncResetFF/dFF:DFlipFlop/dLatch2:DLatch/srLatch:SRLatch",
+    "index":0.3333333333333333
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~SyncRFFWrapper|DLatch_1",
+    "duplicate":"~SyncRFFWrapper|SyncRFFWrapper/srFF:SyncResetFF/dFF:DFlipFlop/dLatch2:DLatch",
+    "index":0.5
+  },
+  {
+    "class":"firrtl.transforms.DontCheckCombLoopsAnnotation$"
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/horie/SequentialCircuit/LatchAndFlipFlop"
+  }
+]

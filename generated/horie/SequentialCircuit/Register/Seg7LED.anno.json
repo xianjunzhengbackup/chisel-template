@@ -1,0 +1,24 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/horie/SequentialCircuit/Register"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~Seg7LED|Seg7LED>io_seg7led_cathodes",
+    "sources":[
+      "~Seg7LED|Seg7LED>io_digits_7",
+      "~Seg7LED|Seg7LED>io_digits_6",
+      "~Seg7LED|Seg7LED>io_digits_5",
+      "~Seg7LED|Seg7LED>io_digits_4",
+      "~Seg7LED|Seg7LED>io_digits_3",
+      "~Seg7LED|Seg7LED>io_digits_2",
+      "~Seg7LED|Seg7LED>io_digits_1",
+      "~Seg7LED|Seg7LED>io_digits_0"
+    ]
+  }
+]

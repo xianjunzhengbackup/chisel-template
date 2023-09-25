@@ -1,0 +1,37 @@
+[
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~DFlipFlop|SRLatch",
+    "duplicate":"~DFlipFlop|DFlipFlop/dLatch1:DLatch/srLatch:SRLatch",
+    "index":0.0
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~DFlipFlop|DLatch",
+    "duplicate":"~DFlipFlop|DFlipFlop/dLatch1:DLatch",
+    "index":0.25
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~DFlipFlop|SRLatch_1",
+    "duplicate":"~DFlipFlop|DFlipFlop/dLatch2:DLatch/srLatch:SRLatch",
+    "index":0.5
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~DFlipFlop|DLatch_1",
+    "duplicate":"~DFlipFlop|DFlipFlop/dLatch2:DLatch",
+    "index":0.75
+  },
+  {
+    "class":"firrtl.transforms.DontCheckCombLoopsAnnotation$"
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/horie/SequentialCircuit/LatchAndFlipFlop"
+  }
+]
