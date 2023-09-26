@@ -1,3 +1,67 @@
+module Synchronizer(
+  input   clock,
+  input   io_d,
+  output  io_q
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+`endif // RANDOMIZE_REG_INIT
+  reg  reg1; // @[Synchronizer.scala 11:21]
+  reg  reg2; // @[Synchronizer.scala 12:21]
+  assign io_q = reg2; // @[Synchronizer.scala 14:8]
+  always @(posedge clock) begin
+    reg1 <= io_d; // @[Synchronizer.scala 11:21]
+    reg2 <= reg1; // @[Synchronizer.scala 12:21]
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  reg1 = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  reg2 = _RAND_1[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
 module ShiftRegisterSIPO(
   input        clock,
   input        reset,
@@ -77,6 +141,12 @@ module PS2(
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
+  wire  clk_syn_clock; // @[Synchronizer.scala 19:21]
+  wire  clk_syn_io_d; // @[Synchronizer.scala 19:21]
+  wire  clk_syn_io_q; // @[Synchronizer.scala 19:21]
+  wire  data_syn_clock; // @[Synchronizer.scala 19:21]
+  wire  data_syn_io_d; // @[Synchronizer.scala 19:21]
+  wire  data_syn_io_q; // @[Synchronizer.scala 19:21]
   wire  receiveBuffer_clock; // @[PS2.scala 58:11]
   wire  receiveBuffer_reset; // @[PS2.scala 58:11]
   wire  receiveBuffer_io_shiftIn; // @[PS2.scala 58:11]
@@ -94,6 +164,16 @@ module PS2(
   wire [3:0] _GEN_3 = 2'h3 == state ? 4'h0 : receiveCount; // @[PS2.scala 35:19 53:22 33:29]
   wire [1:0] _GEN_4 = 2'h2 == state ? 2'h3 : _GEN_2; // @[PS2.scala 35:19 48:15]
   wire [3:0] _GEN_5 = 2'h2 == state ? 4'h0 : _GEN_3; // @[PS2.scala 35:19 49:22]
+  Synchronizer clk_syn ( // @[Synchronizer.scala 19:21]
+    .clock(clk_syn_clock),
+    .io_d(clk_syn_io_d),
+    .io_q(clk_syn_io_q)
+  );
+  Synchronizer data_syn ( // @[Synchronizer.scala 19:21]
+    .clock(data_syn_clock),
+    .io_d(data_syn_io_d),
+    .io_q(data_syn_io_q)
+  );
   ShiftRegisterSIPO receiveBuffer ( // @[PS2.scala 58:11]
     .clock(receiveBuffer_clock),
     .reset(receiveBuffer_reset),
@@ -102,12 +182,16 @@ module PS2(
     .io_q(receiveBuffer_io_q)
   );
   assign io_ps2Out = receiveBuffer_io_q; // @[PS2.scala 62:13]
-  assign receiveBuffer_clock = ~io_ps2Clk; // @[PS2.scala 57:40]
+  assign clk_syn_clock = clock;
+  assign clk_syn_io_d = io_ps2Clk; // @[Synchronizer.scala 20:14]
+  assign data_syn_clock = clock;
+  assign data_syn_io_d = io_ps2Data; // @[Synchronizer.scala 20:14]
+  assign receiveBuffer_clock = ~clk_syn_io_q; // @[PS2.scala 57:40]
   assign receiveBuffer_reset = reset;
-  assign receiveBuffer_io_shiftIn = io_ps2Data; // @[PS2.scala 60:28]
+  assign receiveBuffer_io_shiftIn = data_syn_io_q; // @[PS2.scala 60:28]
   assign receiveBuffer_io_enable = state == 2'h1; // @[PS2.scala 61:36]
   always @(posedge clock) begin
-    reg1 <= io_ps2Clk; // @[PS2.scala 24:21]
+    reg1 <= clk_syn_io_q; // @[PS2.scala 24:21]
     reg2 <= reg1; // @[PS2.scala 25:21]
     if (reset) begin // @[PS2.scala 29:22]
       state <= 2'h0; // @[PS2.scala 29:22]

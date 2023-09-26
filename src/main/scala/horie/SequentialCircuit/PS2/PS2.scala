@@ -17,10 +17,10 @@ class PS2 extends Module{
     val ps2Clk = Input(Bool())
     val ps2Out = Output(UInt(8.W))
   })
-//  val clk = Synchronizer(io.ps2Clk)
-//  val data = Synchronizer(io.ps2Data)
-  val clk = io.ps2Clk
-  val data = io.ps2Data
+  val clk = Synchronizer(io.ps2Clk)
+  val data = Synchronizer(io.ps2Data)
+//  val clk = io.ps2Clk
+//  val data = io.ps2Data
   val reg1 = RegNext(clk)
   val reg2 = RegNext(reg1)
   val stateChange = (reg2 === true.B) && (reg1 === false.B)

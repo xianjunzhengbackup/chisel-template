@@ -1,4 +1,30 @@
 circuit PS2 :
+  module Synchronizer :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip d : UInt<1>, q : UInt<1>}
+
+    reg reg1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), reg1) @[Synchronizer.scala 11:21]
+    reg1 <= io.d @[Synchronizer.scala 11:21]
+    reg reg2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), reg2) @[Synchronizer.scala 12:21]
+    reg2 <= reg1 @[Synchronizer.scala 12:21]
+    io.q <= reg2 @[Synchronizer.scala 14:8]
+
+  module Synchronizer_1 :
+    input clock : Clock
+    input reset : Reset
+    output io : { flip d : UInt<1>, q : UInt<1>}
+
+    reg reg1 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), reg1) @[Synchronizer.scala 11:21]
+    reg1 <= io.d @[Synchronizer.scala 11:21]
+    reg reg2 : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), reg2) @[Synchronizer.scala 12:21]
+    reg2 <= reg1 @[Synchronizer.scala 12:21]
+    io.q <= reg2 @[Synchronizer.scala 14:8]
+
   module ShiftRegisterSIPO :
     input clock : Clock
     input reset : Reset
@@ -17,9 +43,17 @@ circuit PS2 :
     input reset : UInt<1>
     output io : { flip ps2Data : UInt<1>, flip ps2Clk : UInt<1>, ps2Out : UInt<8>}
 
+    inst clk_syn of Synchronizer @[Synchronizer.scala 19:21]
+    clk_syn.clock <= clock
+    clk_syn.reset <= reset
+    clk_syn.io.d <= io.ps2Clk @[Synchronizer.scala 20:14]
+    inst data_syn of Synchronizer_1 @[Synchronizer.scala 19:21]
+    data_syn.clock <= clock
+    data_syn.reset <= reset
+    data_syn.io.d <= io.ps2Data @[Synchronizer.scala 20:14]
     reg reg1 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), reg1) @[PS2.scala 24:21]
-    reg1 <= io.ps2Clk @[PS2.scala 24:21]
+    reg1 <= clk_syn.io.q @[PS2.scala 24:21]
     reg reg2 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), reg2) @[PS2.scala 25:21]
     reg2 <= reg1 @[PS2.scala 25:21]
@@ -56,12 +90,12 @@ circuit PS2 :
             when _T_4 : @[PS2.scala 35:19]
               state <= UInt<2>("h0") @[PS2.scala 52:15]
               receiveCount <= UInt<1>("h0") @[PS2.scala 53:22]
-    node _T_5 = eq(io.ps2Clk, UInt<1>("h0")) @[PS2.scala 57:34]
+    node _T_5 = eq(clk_syn.io.q, UInt<1>("h0")) @[PS2.scala 57:34]
     node _T_6 = asClock(_T_5) @[PS2.scala 57:40]
     inst receiveBuffer of ShiftRegisterSIPO @[PS2.scala 58:11]
     receiveBuffer.clock <= _T_6
     receiveBuffer.reset <= reset
-    receiveBuffer.io.shiftIn <= io.ps2Data @[PS2.scala 60:28]
+    receiveBuffer.io.shiftIn <= data_syn.io.q @[PS2.scala 60:28]
     node _receiveBuffer_io_enable_T = eq(state, UInt<2>("h1")) @[PS2.scala 61:36]
     receiveBuffer.io.enable <= _receiveBuffer_io_enable_T @[PS2.scala 61:27]
     io.ps2Out <= receiveBuffer.io.q @[PS2.scala 62:13]
