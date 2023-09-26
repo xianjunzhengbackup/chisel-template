@@ -6,6 +6,11 @@ import chisel3._
 import chisel3.iotesters._
 import chisel3.util._
 
+//def genCounter (n: Int) = {
+//  val cntReg = RegInit (0.U(8.W))
+//  cntReg := Mux( cntReg === n.U, 0.U, cntReg + 1.U)
+//  cntReg
+//}
 class PS2 extends Module{
   val io = IO(new Bundle{
     val ps2Data = Input(Bool())
@@ -16,35 +21,44 @@ class PS2 extends Module{
 //  val data = Synchronizer(io.ps2Data)
   val clk = io.ps2Clk
   val data = io.ps2Data
-  
   val reg1 = RegNext(clk)
   val reg2 = RegNext(reg1)
-  val stateChange = (reg2===true.B) && (reg1===false.B)
-  val sIdle :: sReceive :: sParity :: Nil = Enum(3)
+  val stateChange = (reg2 === true.B) && (reg1 === false.B)
+
+  val sIdle :: sReceive :: sParity :: sStop :: Nil = Enum(4)
   val state = RegInit(sIdle)
-  val (receiveCount,receiveFinish)=withClock(clk.asClock){
-    Counter(state===sReceive,8)
-  }
-  when(stateChange){
-        switch(state){
-                is(sIdle){
-                  state := sReceive
-                }
-                is(sReceive){
-
-                  when(receiveFinish){
-                    state := sParity
-                  }
-                }
-                is(sParity){
-                  state := sIdle
-                }
-        }
+//  val (receiveCount, receiveFinish) = withClock(clk.asClock){
+//    Counter(state === sReceive, 8)
+//  }
+  val receiveCount = RegInit(0.U(4.W))
+  when(stateChange) {
+    switch(state) {
+      is(sIdle) {
+        state := sReceive
+        receiveCount := 0.U
       }
+      is(sReceive) {
+        when(receiveCount===7.U) {
+          state := sParity
+          receiveCount := 0.U
+        }.otherwise {receiveCount := receiveCount + 1.U}
 
-  val receiveBuffer = withClock(clk.asClock){Module(new ShiftRegisterSIPO(8))}
+      }
+      is(sParity) {
+        state := sStop
+        receiveCount := 0.U
+      }
+      is(sStop) {
+        state := sIdle
+        receiveCount := 0.U
+      }
+    }
+  }
+  val receiveBuffer = withClock((!clk).asClock) {
+    Module(new ShiftRegisterSIPO(8))
+  }
   receiveBuffer.io.shiftIn := data
-  receiveBuffer.io.enable :=state===sReceive
+  receiveBuffer.io.enable := state === sReceive
   io.ps2Out := receiveBuffer.io.q
 }
 
@@ -60,25 +74,41 @@ class PS2Test(c:PS2) extends PeekPokeTester(c){
     poke(c.io.ps2Clk,true)
     poke(c.io.ps2Data,true)
     step(20)
+
+    //send start bit
+    poke(c.io.ps2Data,false)
+    step(2)
+    poke(c.io.ps2Clk,false)
+    step(5)
+
     for(i<-7 to 0 by -1){
       val mask = 1 << i
     
       if((nn & mask) == mask) poke(c.io.ps2Data,true)
       else poke(c.io.ps2Data,false)
-      poke(c.io.ps2Clk,false)
-      step(2)
       poke(c.io.ps2Clk,true)
-      step(2)
+      step(5)
+      poke(c.io.ps2Clk,false)
+      step(5)
     }
+
+    //send parity bit
     poke(c.io.ps2Data,true)
-    poke(c.io.ps2Clk,false)
-    step(2)
     poke(c.io.ps2Clk,true)
-    step(2)
+    step(5)
     poke(c.io.ps2Clk,false)
-    step(2)
+    step(5)
+
+    //send stop bit
+    poke(c.io.ps2Data, true)
+    poke(c.io.ps2Clk, true)
+    step(5)
+    poke(c.io.ps2Clk, false)
+    step(5)
+
+
     poke(c.io.ps2Clk,true)
-    step(10)
+    step(20)
   }
 
   for(i<-10 to 20){

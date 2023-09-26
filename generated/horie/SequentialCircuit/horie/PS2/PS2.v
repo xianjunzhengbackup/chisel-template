@@ -77,54 +77,59 @@ module PS2(
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
-  wire  receiveBuffer_clock; // @[PS2.scala 45:52]
-  wire  receiveBuffer_reset; // @[PS2.scala 45:52]
-  wire  receiveBuffer_io_shiftIn; // @[PS2.scala 45:52]
-  wire  receiveBuffer_io_enable; // @[PS2.scala 45:52]
-  wire [7:0] receiveBuffer_io_q; // @[PS2.scala 45:52]
-  reg  reg1; // @[PS2.scala 20:21]
-  reg  reg2; // @[PS2.scala 21:21]
-  wire  stateChange = reg2 & ~reg1; // @[PS2.scala 22:37]
-  reg [1:0] state; // @[PS2.scala 24:22]
-  wire  _T_1 = state == 2'h1; // @[PS2.scala 26:18]
-  reg [2:0] receiveCount; // @[Counter.scala 61:40]
-  wire  wrap_wrap = receiveCount == 3'h7; // @[Counter.scala 73:24]
-  wire [2:0] _wrap_value_T_1 = receiveCount + 3'h1; // @[Counter.scala 77:24]
-  wire  receiveFinish = _T_1 & wrap_wrap; // @[Counter.scala 118:{16,23} 117:24]
-  wire [1:0] _GEN_2 = receiveFinish ? 2'h2 : state; // @[PS2.scala 24:22 35:38 36:27]
-  wire [1:0] _GEN_3 = 2'h2 == state ? 2'h0 : state; // @[PS2.scala 24:22 29:22 40:25]
-  ShiftRegisterSIPO receiveBuffer ( // @[PS2.scala 45:52]
+  wire  receiveBuffer_clock; // @[PS2.scala 58:11]
+  wire  receiveBuffer_reset; // @[PS2.scala 58:11]
+  wire  receiveBuffer_io_shiftIn; // @[PS2.scala 58:11]
+  wire  receiveBuffer_io_enable; // @[PS2.scala 58:11]
+  wire [7:0] receiveBuffer_io_q; // @[PS2.scala 58:11]
+  reg  reg1; // @[PS2.scala 24:21]
+  reg  reg2; // @[PS2.scala 25:21]
+  wire  stateChange = reg2 & ~reg1; // @[PS2.scala 26:39]
+  reg [1:0] state; // @[PS2.scala 29:22]
+  reg [3:0] receiveCount; // @[PS2.scala 33:29]
+  wire [3:0] _receiveCount_T_1 = receiveCount + 4'h1; // @[PS2.scala 44:51]
+  wire [1:0] _GEN_0 = receiveCount == 4'h7 ? 2'h2 : state; // @[PS2.scala 41:34 42:17 29:22]
+  wire [3:0] _GEN_1 = receiveCount == 4'h7 ? 4'h0 : _receiveCount_T_1; // @[PS2.scala 41:34 43:24 44:35]
+  wire [1:0] _GEN_2 = 2'h3 == state ? 2'h0 : state; // @[PS2.scala 35:19 52:15 29:22]
+  wire [3:0] _GEN_3 = 2'h3 == state ? 4'h0 : receiveCount; // @[PS2.scala 35:19 53:22 33:29]
+  wire [1:0] _GEN_4 = 2'h2 == state ? 2'h3 : _GEN_2; // @[PS2.scala 35:19 48:15]
+  wire [3:0] _GEN_5 = 2'h2 == state ? 4'h0 : _GEN_3; // @[PS2.scala 35:19 49:22]
+  ShiftRegisterSIPO receiveBuffer ( // @[PS2.scala 58:11]
     .clock(receiveBuffer_clock),
     .reset(receiveBuffer_reset),
     .io_shiftIn(receiveBuffer_io_shiftIn),
     .io_enable(receiveBuffer_io_enable),
     .io_q(receiveBuffer_io_q)
   );
-  assign io_ps2Out = receiveBuffer_io_q; // @[PS2.scala 48:13]
-  assign receiveBuffer_clock = io_ps2Clk; // @[PS2.scala 45:37]
+  assign io_ps2Out = receiveBuffer_io_q; // @[PS2.scala 62:13]
+  assign receiveBuffer_clock = ~io_ps2Clk; // @[PS2.scala 57:40]
   assign receiveBuffer_reset = reset;
-  assign receiveBuffer_io_shiftIn = io_ps2Data; // @[PS2.scala 46:28]
-  assign receiveBuffer_io_enable = state == 2'h1; // @[PS2.scala 47:34]
+  assign receiveBuffer_io_shiftIn = io_ps2Data; // @[PS2.scala 60:28]
+  assign receiveBuffer_io_enable = state == 2'h1; // @[PS2.scala 61:36]
   always @(posedge clock) begin
-    reg1 <= io_ps2Clk; // @[PS2.scala 20:21]
-    reg2 <= reg1; // @[PS2.scala 21:21]
-    if (reset) begin // @[PS2.scala 24:22]
-      state <= 2'h0; // @[PS2.scala 24:22]
-    end else if (stateChange) begin // @[PS2.scala 28:20]
-      if (2'h0 == state) begin // @[PS2.scala 29:22]
-        state <= 2'h1; // @[PS2.scala 31:25]
-      end else if (2'h1 == state) begin // @[PS2.scala 29:22]
-        state <= _GEN_2;
+    reg1 <= io_ps2Clk; // @[PS2.scala 24:21]
+    reg2 <= reg1; // @[PS2.scala 25:21]
+    if (reset) begin // @[PS2.scala 29:22]
+      state <= 2'h0; // @[PS2.scala 29:22]
+    end else if (stateChange) begin // @[PS2.scala 34:21]
+      if (2'h0 == state) begin // @[PS2.scala 35:19]
+        state <= 2'h1; // @[PS2.scala 37:15]
+      end else if (2'h1 == state) begin // @[PS2.scala 35:19]
+        state <= _GEN_0;
       end else begin
-        state <= _GEN_3;
+        state <= _GEN_4;
       end
     end
-  end
-  always @(posedge io_ps2Clk) begin
-    if (reset) begin // @[Counter.scala 61:40]
-      receiveCount <= 3'h0; // @[Counter.scala 61:40]
-    end else if (_T_1) begin // @[Counter.scala 118:16]
-      receiveCount <= _wrap_value_T_1; // @[Counter.scala 77:15]
+    if (reset) begin // @[PS2.scala 33:29]
+      receiveCount <= 4'h0; // @[PS2.scala 33:29]
+    end else if (stateChange) begin // @[PS2.scala 34:21]
+      if (2'h0 == state) begin // @[PS2.scala 35:19]
+        receiveCount <= 4'h0; // @[PS2.scala 38:22]
+      end else if (2'h1 == state) begin // @[PS2.scala 35:19]
+        receiveCount <= _GEN_1;
+      end else begin
+        receiveCount <= _GEN_5;
+      end
     end
   end
 // Register and memory initialization
@@ -170,7 +175,7 @@ initial begin
   _RAND_2 = {1{`RANDOM}};
   state = _RAND_2[1:0];
   _RAND_3 = {1{`RANDOM}};
-  receiveCount = _RAND_3[2:0];
+  receiveCount = _RAND_3[3:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
