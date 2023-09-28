@@ -9,9 +9,13 @@ VecInit.fill only works with hardware
 Vec only works with chisel Data type
 Data wrapped by IO is hardware
 
+val res_n_minus_2 = Cat(for(i<-n-3 to 0 by -1) yield {adders(i).sum(0)})
+val digits = VecInit(for(i<-0 to n-1)yield{io.a & Fill(n,io.b(i))                                         15  })
+IO中的UInt，只可以按位读，不可以按位写。
+
 object AdderNBitObj extends App{
     (new chisel3.stage.ChiselStage).execute(Array("--target-dir","generated/horie/CombinationalCircuit/AdderNBit"),Seq(ChiselGeneratorAnnotation(()=>new AdderNBit(8))))
-      chisel3.iotesters.Driver.execute(args,()=>new AdderNBit(8))(c=>new AdderNBitTest(c))
+    chisel3.iotesters.Driver.execute(Array("-td","/data/data/com.termux/files/home/generated/horie/CombinationalCircuit","--backend-name","verilator"),()=>new Multiplier4Bit)(c=>new Multiplier4BitTest(c))
 }
 class AdderNBitTest(c:AdderNBit) extends PeekPokeTester(c){
     val startValue = math.pow(2,c.n - 1).toInt
@@ -24,7 +28,109 @@ class AdderNBitTest(c:AdderNBit) extends PeekPokeTester(c){
           poke(c.io.b,b)
           poke(c.io.carryIn,carry)
           step(1)
+	  val expectedValue = a*b
+	  expect(c.io.result,expectedValue)
       }
 }
 
-sbt "runMain Sequential_circuit.Counting -td /data/data/com.termux/files/home/generated/Sequentialcircui --backend-name verilator"
+sbt "runMain Sequential_circuit.Counting"
+
+class SRLatchTest(c:SRLatch) extends PeekPokeTester(c){
+    for{
+         r <- false to true
+         s <- false to true
+      }{
+          poke(c.io.set,s)
+          poke(c.io.reset,r)
+          step(1)
+          System.out.println(s"reset is $r, set is $s")
+          val q = peek(c.io.q)
+          val notQ=peek(c.io.notQ)
+          System.out.println(s"Q is $q")
+          System.out.println(s"notQ is $notQ")
+
+          poke(c.io.set,r)
+          poke(c.io.reset,s)
+          step(1)
+          System.out.println(s"reset is $s, set is $r")
+          val q2 = peek(c.io.q)
+          val notQ2=peek(c.io.notQ)
+          System.out.println(s"Q is $q2")
+          System.out.println(s"notQ is $notQ2")
+      }
+}
+
+object SRLatchObj extends App{                                          (new chisel3.stage.ChiselStage).execute(Array("--target-dir","ge
+nerated/horie/SequentialCircuit/LatchAndFlipFlop","--no-check-comb-l
+oops"),Seq(ChiselGeneratorAnnotation(()=>new SRLatch)))
+    chisel3.iotesters.Driver.execute(Array("-td","/data/data/com.ter
+mux/files/home/generated/horie/SequentialCircuit","--backend-name","
+verilator","--no-check-comb-loops"),()=>new SRLatch)(c=>new SRLatchT
+est(c))
+}
+withReset(~io.resetN){
+     io.out :=RegEnable(io.in,0.U(4.W),io.enable)
+}
+val reg31Bit = RegInit(0.U(31.W))
+io.seg7led.anodes := ~("b0000_0001".U << digitIndex)
+val (_,msTrigger) = Counter(true.B,1000000)
+val (msCount,sTrigger)=Counter(msTrigger,100)
+val (sCount,mTrigger)=Counter(sTrigger,60)
+val (mCount,hTrigger)=Counter(mTrigger,60)
+val (hCount,_)=Counter(hTrigger,24)
+
+--------------statemachine-----------
+val sTimeSet :: sRun :: sPause :: sFin :: Nil = Enum(4)
+val state = RegInit(sTimeSet)
+when(stateChange){
+	switch(state){
+		is(sTimeSet){
+          		when(!time.io.zero){
+            			state := sRun
+          		}
+        	}
+        }
+      }
+
+Seg7LED.io.digits := VecInit(List(time.io.sec % 10.U,    
+     (time.io.sec / 10.U)(3,0),
+     time.io.min % 10.U,
+     (time.io.min / 10.U)(3,0))
+     ::: List.fill(4){0.U(4.W)})
+
+移位寄存器
+val regs = RegInit(0.U(n.W))
+  when(io.enable){
+    regs := regs(n-2 , 0) ## io.shiftIn.asUInt
+  }
+ Singleton
+ object Synchronizer {                                                 
+    def apply(val d:Bool)={
+        val syn = Module(new Synchronizer)                                  
+        syn.io.d := d                                                       
+        syn.io.q                                                          
+    }
+ }
+ 
+ 测试模板
+ package chisel_book                                               
+ import chisel3._                                                  
+ import chiseltest._                                               
+ import org.scalatest.flatspec.AnyFlatSpec    
+ 
+ class SimpleTest extends AnyFlatSpec with ChiselScalatestTester{  
+    "DUT" should "pass" in {  
+        test(new DeviceUnderTest){ dut =>                             
+            dut.io.a.poke(0.U)                                         
+            dut.io.b.poke(1.U)                                         
+            dut.clock.step()                                           
+            println("Result is: " + dut.io.out.peekInt()) 
+            val res = dut.io.out.peekInt() 
+            assert(res == 0) 
+            val equ = dut.io.equ.peekBoolean() 
+            assert(!equ)
+      }
+    }
+  }
+ 该文件保存在src/test/scala/chisel_book，它可以测试src/main/scala/chisel_book中的DeviceUnderTest模块
+ 在console下运行 sbt "testOnly chisel_book.SimpleTest"eTest"
