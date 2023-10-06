@@ -5,7 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import chisel3.stage.PrintFullStackTraceAnnotation
 
 class PathBlackBoxAdderTest extends AnyFlatSpec with ChiselScalatestTester {
-  "DUT" should "pass" in {
+  "PathBlackBoxAdderTest" should "Generate VCD files" in {
     test(new PathBlackBoxAdderWrapper)
       .withAnnotations(Seq(VerilatorBackendAnnotation,WriteVcdAnnotation)){ dut =>
         for(i <- 32 to 32-10 by -1){
