@@ -1,5 +1,4 @@
-
-module InlineBlackBoxAdder(a,b,cin,c,cout);
+module PathBlackBoxAdder(a,b,cin,c,cout);
 input [31:0] a,b;
 input cin;
 output [31:0] c;
@@ -11,4 +10,3 @@ assign c = sum[31:0];
 assign cout = sum[32];
 
 endmodule
-    

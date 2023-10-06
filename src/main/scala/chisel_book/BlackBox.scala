@@ -70,7 +70,7 @@ object OneMoreGenerateInlineBlackBoxAdder extends App{
 
 class PathBlackBoxAdder extends HasBlackBoxPath{
   val io = IO(new BlackBoxAdderIO)
-  addPath("./generated/chisel_book/InlineBlackBoxAdder.v")
+  addPath("./generated/chisel_book/PathBlackBoxAdder.v")
 }
 
 class PathBlackBoxAdderWrapper extends Module{
