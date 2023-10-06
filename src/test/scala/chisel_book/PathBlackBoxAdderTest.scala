@@ -25,11 +25,7 @@ class PathBlackBoxAdderTest extends AnyFlatSpec with ChiselScalatestTester {
 class InlineBlackBoxAdderTest extends AnyFlatSpec with ChiselScalatestTester {
   val annos = Seq(VerilatorBackendAnnotation,WriteVcdAnnotation,PrintFullStackTraceAnnotation)
   it should "support verilog blackbox" in {
-    test(new Module{
-      val io=IO(new BlackBoxAdderIO)
-      val adder = Module(new InlineBlackBoxAdder)
-      io <> adder.io
-      }).withAnnotations(annos) { dut =>
+    test(new BlackBoxWrapper).withAnnotations(annos) { dut =>
         for(i <- 32 to 32-10 by -1){
           dut.io.a.poke(i.U)
           dut.io.b.poke(10.U)
