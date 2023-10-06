@@ -42,7 +42,7 @@ class InlineBlackBoxAdder extends HasBlackBoxInline{
     |wire [32:0] sum;
     |
     |assign sum = a + b + cin;
-    |assing c = sum[31:0];
+    |assign c = sum[31:0];
     |assign cout = sum[32];
     |
     |endmodule
