@@ -1,0 +1,16 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxInlineAnno",
+    "target":"BlackBoxWrapper.InlineBlackBoxAdder",
+    "name":"InlineBlackBoxAdder.v",
+    "text":"\nmodule InlineBlackBoxAdder(a,b,cin,c,cout);\ninput [31:0] a,b;\ninput cin;\noutput [31:0] c;\noutput cout;\nwire [32:0] sum;\n\nassign sum = a + b + cin;\nassing c = sum[31:0];\nassign cout = sum[32];\n\nendmodule\n    "
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"generated/chisel_book"
+  }
+]
