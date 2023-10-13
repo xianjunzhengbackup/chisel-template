@@ -16,3 +16,15 @@ class SearchVecTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 }
+class SearchVecWithHighOrderFuncTest extends AnyFlatSpec with ChiselScalatestTester {
+  val annos = Seq(WriteVcdAnnotation,PrintFullStackTraceAnnotation)
+  it should "test SearchVecWithHighOrderFunc" in {
+    test(new SearchVecWithHighOrderFunc(10,(x:UInt,y:UInt)=>x>y)).withAnnotations(annos) { dut =>
+        for(i <- 0 to 9 by 1){
+          dut.io.vec(i).poke(i.U)
+          dut.clock.step()
+          println(s"maxmum value is "+dut.io.out.v.peekInt()+" and its index is " + dut.io.out.idx.peekInt())
+        }
+    }
+  }
+}
