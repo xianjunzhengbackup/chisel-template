@@ -15,7 +15,7 @@ class SearchVec(n:Int) extends Module{
     vecTwo(i).v := io.vec(i)
     vecTwo(i).idx := i.U
   }
-  io.out := vecTwo.reduceTree((x,y)=>Mux(x.v < y.v),x,y)
+  io.out := vecTwo.reduceTree((x,y)=>Mux(x.v < y.v,x,y))
 }
 
 object GenerateSearchVec extends App{
